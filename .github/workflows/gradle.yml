@@ -5,6 +5,9 @@ on:
     paths:
     - 'gradle/**'
 
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.GRADLE_EXAMPLE_TOKEN }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
