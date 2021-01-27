@@ -3,10 +3,10 @@ name: Builds Gradle sample
 on:
   push:
     paths:
-    - 'gradle'
+    - 'gradle/**'
   pull_request:
     paths:
-    - 'gradle'
+    - 'gradle/**'
 
 jobs:
   build:
