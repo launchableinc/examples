@@ -13,8 +13,12 @@ launchable record build --name "$BUILD_NAME" --source ..
 # Find 25% of the relevant tests to run for this change
 launchable subset --target 25% --build "$BUILD_NAME" gradle src/test/java > subset.txt
 
-# Run gradle with the subset of tests
-./gradlew test $(< subset.txt) || true
+function record() {
+  # Record test results
+  launchable record test --build "$BUILD_NAME" gradle build/test-results/test
+}
 
-# Record test results
-launchable record test --build "$BUILD_NAME" gradle build/test-results/test
+trap record EXIT
+
+# Run gradle with the subset of tests
+./gradlew test $(< subset.txt)
