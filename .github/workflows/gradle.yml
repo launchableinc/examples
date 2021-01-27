@@ -3,10 +3,10 @@ name: Builds Gradle sample
 on:
   push:
     paths:
-    - 'gradle'
+    - 'gradle/**'
   pull_request:
     paths:
-    - 'gradle'
+    - 'gradle/**'
 
 env:
   LAUNCHABLE_TOKEN: ${{ secrets.GRADLE_EXAMPLE_TOKEN }}
