@@ -4,9 +4,6 @@ on:
   push:
     paths:
     - 'gradle/**'
-  pull_request:
-    paths:
-    - 'gradle/**'
 
 jobs:
   build:
