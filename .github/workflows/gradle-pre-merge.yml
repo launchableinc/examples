@@ -1,11 +1,12 @@
-name: Builds Gradle sample
+name: Efficient pull request validation for Gradle example
 
 on:
-  push:
-    branches:
-    - master
+  pull_request:
     paths:
     - gradle/**
+
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.GRADLE_EXAMPLE_TOKEN }}
 
 jobs:
   build:
@@ -18,8 +19,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Full build
-      if: github.event_name == 'push'
+
+    - name: Pull request validation
+      if: github.event_name == 'pull_request'
       run: |
         cd gradle
-        ./ci.sh
+        ./pre-merge.sh
