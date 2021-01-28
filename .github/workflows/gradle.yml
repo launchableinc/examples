@@ -2,8 +2,13 @@ name: Builds Gradle sample
 
 on:
   push:
+    branches:
+    - master
     paths:
-    - 'gradle/**'
+    - gradle/**
+  pull_request:
+    paths:
+    - gradle/**
 
 env:
   LAUNCHABLE_TOKEN: ${{ secrets.GRADLE_EXAMPLE_TOKEN }}
@@ -20,7 +25,14 @@ jobs:
       with:
         java-version: 1.8
 
-    - name: Start build
+    - name: Pull request validation
+      if: github.event_name == 'pull_request'
+      run: |
+        cd gradle
+        ./ci.sh
+
+    - name: Full build
+      if: github.event_name == 'push'
       run: |
         cd gradle
         ./ci.sh
