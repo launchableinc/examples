@@ -1,10 +1,11 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 BUILD_NAME=${GITHUB_RUN_ID:=local-$(date +%s)}
 
 # Get Launchable CLI installed. If you can, make it a part of the builder image to speed things up
-pip3 install --user launchable~=1.0
+pip3 install --user launchable~=1.0 > /dev/null
 export PATH=~/.local/bin:$PATH
 
+set -x
 # Verify that Launchable setup is all correct. Useful primarily while you work on integration
 launchable verify
 
