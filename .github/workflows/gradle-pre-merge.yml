@@ -2,8 +2,6 @@ name: Efficient pull request validation for Gradle example
 
 on:
   pull_request:
-    paths:
-    - gradle/**
 
 env:
   LAUNCHABLE_TOKEN: ${{ secrets.GRADLE_EXAMPLE_TOKEN }}
