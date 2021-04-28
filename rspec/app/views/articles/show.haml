@@ -1,0 +1,16 @@
+%H1= @article.title
+.body= @article.body
+
+%h2
+  comments
+= form_with model:[@article, @article.comments.build] do |f|
+  = f.label :name
+  = f.text_field :name
+  = f.label :body, "message"
+  = f.text_field :body
+  = f.submit
+%dl
+  - @article.comments.each do |comment|
+    %dt= comment.name
+    %dd= comment.body
+= link_to "index", articles_path
