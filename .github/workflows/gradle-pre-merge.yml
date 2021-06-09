@@ -6,7 +6,8 @@ on:
     - gradle/**
 
 env:
-  LAUNCHABLE_TOKEN: ${{ secrets.GRADLE_EXAMPLE_TOKEN }}
+  LAUNCHABLE_ORGANIZATION: "examples"
+  LAUNCHABLE_WORKSPACE: "gradle"
 
 jobs:
   build:
@@ -23,6 +24,7 @@ jobs:
         java-version: 1.8
 
     - name: Pull request validation
-      run: |
-        cd gradle
-        ./pre-merge.sh
+      run: ./pre-merge.sh
+      working-directory: ./gradle
+      env:
+        GITHUB_PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
