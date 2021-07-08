@@ -1,0 +1,8 @@
+package example;
+import java.lang.Math;
+
+public class Sqrt {
+    public int calc(int x) {
+        return Math.sqrt(x);
+    }
+}
