@@ -23,7 +23,7 @@ jobs:
       with:
         java-version: 1.8
 
-    - name: Pull request validation
+    - name: Run tests with Gradle and Launchable
       run: ./pre-merge.sh
       working-directory: ./gradle
       env:
