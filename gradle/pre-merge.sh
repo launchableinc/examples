@@ -25,7 +25,6 @@ launchable record build --name "$BUILD_NAME" --source ..
 
 echo -e "\n# Find 25% of the relevant tests to run for this change"
 echo -e "# Command: launchable subset --target 25% --build \"\$BUILD_NAME\" gradle src/test/java > subset.txt\n"
-echo
 launchable subset --target 25% --build "$BUILD_NAME" gradle src/test/java > subset.txt
 
 echo "# Inspect the subset file"
@@ -33,7 +32,6 @@ echo "# Command: cat subset.txt"
 cat subset.txt
 
 function record() {
-  echo
   echo -e "\n# Record test results"
   echo -e "# Command: launchable record tests --build \"\$BUILD_NAME\" gradle build/test-results/test\n"
   launchable record tests --build "$BUILD_NAME" gradle build/test-results/test
