@@ -2,7 +2,7 @@
 BUILD_NAME=${GITHUB_RUN_ID:=local-$(date +%s)}
 
 echo
-echo "=== BEGIN LAUNCHABLE ==="
+echo "===== BEGIN LAUNCHABLE ====="
 
 echo
 echo "# Install the Launchable CLI. If you can, install it as part of the builder image to speed things up"
@@ -12,7 +12,6 @@ pip3 install --user launchable~=1.0 > /dev/null
 
 export PATH=~/.local/bin:$PATH
 
-echo
 echo "# Verify that Launchable setup is all correct. Useful primarily while you work on integration"
 echo "# Command: launchable verify"
 echo
@@ -24,13 +23,11 @@ echo "# Command: launchable record build --name \"\$BUILD_NAME\" --source .."
 echo
 launchable record build --name "$BUILD_NAME" --source ..
 
-echo
 echo -e "\n# Find 25% of the relevant tests to run for this change"
 echo -e "# Command: launchable subset --target 25% --build \"\$BUILD_NAME\" gradle src/test/java > subset.txt\n"
 echo
 launchable subset --target 25% --build "$BUILD_NAME" gradle src/test/java > subset.txt
 
-echo
 echo "# Inspect the subset file"
 echo "# Command: cat subset.txt"
 cat subset.txt
@@ -39,11 +36,10 @@ function record() {
   echo
   echo -e "\n# Record test results"
   echo -e "# Command: launchable record tests --build \"\$BUILD_NAME\" gradle build/test-results/test\n"
-  echo
   launchable record tests --build "$BUILD_NAME" gradle build/test-results/test
   
   echo
-  echo "=== END LAUNCHABLE ==="
+  echo "===== END LAUNCHABLE ====="
   echo
 }
 
