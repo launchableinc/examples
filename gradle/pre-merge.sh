@@ -34,8 +34,10 @@ echo "# Command: cat subset.txt"
 cat subset.txt
 
 function record() {
-  echo -e "\n# Record test results"
-  echo -e "# Command: launchable record tests --build \"\$BUILD_NAME\" gradle build/test-results/test\n"
+  echo
+  echo "# Record test results"
+  echo "# Command: launchable record tests --build \"\$BUILD_NAME\" gradle build/test-results/test"
+  echo
   launchable record tests --build "$BUILD_NAME" gradle build/test-results/test
   
   echo
