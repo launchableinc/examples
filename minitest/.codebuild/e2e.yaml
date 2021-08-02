@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      ruby: 2.x
+  pre_build:
+    commands:
+      - cd minitest
+      - bundle install
+  build:
+    commands:
+      - cd minitest
+      - launchable record build --name $CODEBUILD_BUILD_NUMBER
+      - launchable subset --build $CODEBUILD_BUILD_NUMBER --target 25% --rest launchable-rest.txt minitest test/**/*.rb > launchable-subset.txt
+      - |
+        function record() {
+          launchable record tests --build $CODEBUILD_BUILD_NUMBER minitest test/reports/**/*.xml
+        }
+        trap record EXIT
+      - export TESTOPTS="--ci-report --ci-dir=test/reports/subset"
+      - bundle ex rake test TEST_FILES="$(cat launchable-subset.txt)"
+      - export TESTOPTS="--ci-report --ci-dir=test/reports/rest"
+      - bundle ex rake test TEST_FILES="$(cat launchable-rest.txt)"

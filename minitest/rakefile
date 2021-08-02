@@ -1,8 +1,9 @@
 require 'rake/testtask'
 
 Rake::TestTask.new do |t|
-  t.pattern = "test/test_*.rb"
-  t.options = "--ci-report"
+  files = ENV['TEST_FILES'].split(/\s|\n/)
+
+  t.test_files = files
 end
 
 task :default => :test
