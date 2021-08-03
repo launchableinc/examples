@@ -1,5 +1,6 @@
 version: 0.2
-
+env:
+  shell: bash
 phases:
   install:
     runtime-versions:
@@ -8,17 +9,16 @@ phases:
     commands:
       - cd minitest
       - bundle install
+      - pip install launchable
   build:
     commands:
-      - cd minitest
-      - launchable record build --name $CODEBUILD_BUILD_NUMBER
+      - launchable record build --name $CODEBUILD_BUILD_NUMBER --source main=..
       - launchable subset --build $CODEBUILD_BUILD_NUMBER --target 25% --rest launchable-rest.txt minitest test/**/*.rb > launchable-subset.txt
-      - |
-        function record() {
-          launchable record tests --build $CODEBUILD_BUILD_NUMBER minitest test/reports/**/*.xml
-        }
-        trap record EXIT
       - export TESTOPTS="--ci-report --ci-dir=test/reports/subset"
       - bundle ex rake test TEST_FILES="$(cat launchable-subset.txt)"
       - export TESTOPTS="--ci-report --ci-dir=test/reports/rest"
       - bundle ex rake test TEST_FILES="$(cat launchable-rest.txt)"
+      - launchable record tests --build $CODEBUILD_BUILD_NUMBER minitest test/reports/**/*.xml
+      - echo "Asserting all the test cases (12) are executed with the rest option"
+      - count=$(cat test/reports/**/*.xml | grep '<testcase' | wc -l)
+      - test $count -eq 12
