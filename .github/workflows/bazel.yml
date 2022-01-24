@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: bazel
+        working-directory: bazel/java
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -52,25 +52,22 @@ jobs:
           pip install git+https://github.com/launchableinc/cli.git@main
       - run: "launchable verify"
       - name: Record commits and build
-        run: 'launchable record build --name "$GITHUB_RUN_ID" --source main=.'
+        run: 'launchable record build --name "$GITHUB_RUN_ID" --source ../..' # care for working-directory path
       - name: Start session
-        run: 'launchable record session --name "$GITHUB_RUN_ID" > test_session.txt'
-        working-directory: java
+        run: 'launchable record session --build "$GITHUB_RUN_ID" > test_session.txt'
       - name: Print session
         run: cat test_session.txt
-        working-directory: java
       - name: Print test cases
         run: bazelisk query 'tests(//...)'
-        working-directory: java
       - name: Output subset
-        run: bazelisk query 'tests(//...)' | launchable subset --target 10% --session "$(cat test_session.txt)" bazel > subset.txt
-        working-directory: java
+        run: bazelisk query 'tests(//...)' | launchable subset --target 30% --session "$(cat test_session.txt)" --rest rest.txt bazel > subset.txt
       - name: Print subset
         run: cat subset.txt
-        working-directory: java
+      - name: Print rest
+        run: cat rest.txt
       - name: Run subset
         run: bazelisk test $(cat subset.txt)
-        working-directory: java
+      - name: Run rest
+        run: bazelisk test $(cat rest.txt)
       - name: Record test results
         run: launchable record test --session "$(cat test_session.txt)" bazel .
-        working-directory: java
