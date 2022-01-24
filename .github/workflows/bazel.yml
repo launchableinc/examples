@@ -71,3 +71,4 @@ jobs:
         run: bazelisk test $(cat rest.txt)
       - name: Record test results
         run: launchable record test --session "$(cat test_session.txt)" bazel .
+        if: always()

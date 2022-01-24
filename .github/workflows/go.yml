@@ -47,3 +47,4 @@ jobs:
         run: go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
       - name: Record
         run: launchable record tests go-test report.xml
+        if: always()
