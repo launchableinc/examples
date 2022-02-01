@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/launchableinc/rocket-car-gotest/example"
+	"github.com/launchableinc/examples/go/example"
 )
 
 func TestGreeting(t *testing.T) {

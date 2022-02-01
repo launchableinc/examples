@@ -1,3 +1,3 @@
-module github.com/launchableinc/rocket-car-gotest
+module github.com/launchableinc/examples/go
 
 go 1.17
