@@ -17,7 +17,7 @@ $ launchable record build --name ${BUILD_NAME}
 
 $ launchable record tests --build ${BUILD_NAME} go-test .
 
-Launchable recorded tests for build test (test session 6) to workspace launchableinc/mothership from 1 files:
+Launchable recorded tests for build test (test session 6) to workspace launchableinc/example from 1 files:
 
 |   Files found |   Tests found |   Tests passed |   Tests failed |   Total duration (min) |
 |---------------|---------------|----------------|----------------|------------------------|
@@ -53,7 +53,7 @@ $ go test -list . ./... | \
     go-test > launchable-subset.txt
     
 Your model is currently in training
-Launchable created subset 6 for build test (test session 6) in workspace launchableinc/mothership
+Launchable created subset 6 for build test (test session 6) in workspace launchableinc/example
 
 |           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
 |-----------|--------------|--------------------------|----------------------------|
