@@ -2,7 +2,7 @@ name: Go
 
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - "go/**"
   pull_request:
@@ -48,3 +48,9 @@ jobs:
       - name: Record
         run: launchable record tests go-test report.xml
         if: always()
+        
+      - name: Build
+        run: go build -v ./...
+
+      - name: Test
+        run: go test -v ./...
