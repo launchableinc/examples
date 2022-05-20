@@ -6,8 +6,8 @@ on:
     - gradle/**
 
 env:
-  LAUNCHABLE_ORGANIZATION: "examples"
-  LAUNCHABLE_WORKSPACE: "gradle"
+  LAUNCHABLE_ORGANIZATION: "self-org/"
+  LAUNCHABLE_WORKSPACE: "nexe"
 
 jobs:
   build:
