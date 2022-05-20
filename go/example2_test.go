@@ -12,6 +12,9 @@ func TestExample3(t *testing.T) {
 	if false != false {
 		t.Fatal("false is not false")
 	}
+	if 1 == 1 {
+		t.fatal("failed")
+	}
 }
 
 func TestExample4(t *testing.T) {
