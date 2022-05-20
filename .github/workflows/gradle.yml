@@ -21,3 +21,4 @@ jobs:
       run: |
         cd gradle
         ./ci.sh
+launchable verify || true
