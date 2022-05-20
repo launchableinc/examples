@@ -36,7 +36,7 @@ jobs:
         run: go get -u github.com/jstemmer/go-junit-report
       - run: "launchable verify"
       - name: Record commits and build
-        run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
+        run: 'launchable record build --name "$GITHUB_RUN_ID" --source ./../../go' # care for working-directory path
       - name: Subset
         run: go test -v ./... | launchable subset --confidence 80%  go-test > launchable-subset.txt
       - name: Test
