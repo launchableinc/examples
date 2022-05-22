@@ -2,7 +2,11 @@ name: Go
 
 on:
   push:
+    paths:
+      - "go/**"
   pull_request:
+    paths:
+      - "go/**"
   
 env:
   LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_GO }}
