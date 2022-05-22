@@ -8,6 +8,7 @@ on:
 env:
   LAUNCHABLE_ORGANIZATION: "self-org"
   LAUNCHABLE_WORKSPACE: "nexe"
+   LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_GO }}
 
 jobs:
   build:
