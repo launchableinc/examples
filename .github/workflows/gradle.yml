@@ -6,6 +6,7 @@ on:
     - master
     paths:
     - gradle/**
+  pull_request:
 
 jobs:
   build:
