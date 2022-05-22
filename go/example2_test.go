@@ -13,7 +13,7 @@ func TestExample3(t *testing.T) {
 		t.Fatal("false is not false")
 	}
 	if 1 == 1 {
-		t.fatal("failed")
+		t.Fatal("failed")
 	}
 }
 
