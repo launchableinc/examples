@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 
 env:
-  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_BAZEL }}
+  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_GO }}
   LAUNCHABLE_DEBUG: 1
   LAUNCHABLE_REPORT_ERROR: 1
 
@@ -60,7 +60,7 @@ jobs:
       - name: Print test cases
         run: bazelisk query 'tests(//...)'
       - name: Output subset
-        run: bazelisk query 'tests(//...)' | launchable subset --target 30% --session "$(cat test_session.txt)" --rest rest.txt bazel > subset.txt
+        run: bazelisk query 'tests(//...)' | launchable subset --target 70% --session "$(cat test_session.txt)" --rest rest.txt bazel > subset.txt
       - name: Print subset
         run: cat subset.txt
       - name: Print rest
