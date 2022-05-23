@@ -12,5 +12,6 @@ public class MyLibTest5 {
     } catch(Exception e) {
     }
     assertEquals(89, MyLib.fibonacci(11));
+    assertEquals(89, MyLib.fibonacci(12));
   }
 }
