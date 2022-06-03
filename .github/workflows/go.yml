@@ -38,8 +38,7 @@ jobs:
           go-version: 1.18
       - name: Install dependencies
         run: |
-          go get github.com/jstemmer/go-junit-report
-          go install github.com/jstemmer/go-junit-report
+          go install github.com/jstemmer/go-junit-report@latest
       - run: "launchable verify"
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
