@@ -20,7 +20,7 @@ You can follow this flow entirely within GitHub; you just need a GitHub account:
 6. Use the buttons at the bottom of the page to commit this change directly to the `master` branch.
 7. Then, navigate to the Pull requests section in your fork repository
 8. Click `New pull request`. The subsequent Compare changes page should automatically select your fork as the source and this repository as the target.
-9. Go ahead and create the pull request between your fork and the `launchableinc/examples repository`. This will kick off the PR test run with Launchable!
+9.  Go ahead and create the pull request between your fork and the `launchableinc/examples repository`. This will kick off the PR test run with Launchable!
 10. Click on the “Checks” in the pull request view.
 11. Open up the `build` job and open the “Run tests with Gradle and Launchable” step.
 

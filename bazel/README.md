@@ -68,7 +68,7 @@ Launchable created subset 6 for build test (test session 5) in workspace launcha
 | Subset    |            2 |                  22.2222 |                3.33333e-05 |
 | Remainder |            7 |                  77.7778 |                0.000116667 |
 |           |              |                          |                            |
-| Total     |            9 |                 100      |               22.2223      |
+| Total     |            9 |                 100      |                0.00012     |
 
 Run `launchable inspect subset --subset-id 6` to view full subset details
 
