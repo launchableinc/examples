@@ -31,7 +31,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install wheel setuptools_scm
-          pip install git+https://github.com/launchableinc/cli.git@main
+          pip install launchable
       - name: Set up Go
         uses: actions/setup-go@v2
         with:

@@ -3,12 +3,15 @@
 ## Recording test results
 
 ```sh
+# <= golang1.17
 $ go get -d github.com/jstemmer/go-junit-report
+# >= golang1.18
+$ go install github.com/jstemmer/go-junit-report@latest
 
 $ go test -v ./... | go-junit-report > report.xml
 
 $ BUILD_NAME=test
-$ launchable record build --name ${BUILD_NAME}
+$ launchable record build --name ${BUILD_NAME} --source ..
 
 | Name   | Path   | HEAD Commit                              |
 |--------|--------|------------------------------------------|
