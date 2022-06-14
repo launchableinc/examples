@@ -2,14 +2,14 @@
 # See https://docs.launchableinc.com/resources/cli-reference for detailed usage of these options
 #  
 schema-version: 1.0
-build-id: commit_hash
+build-name: commit_hash
 record-build:
   # Put your git repository location here
-  source: ../.
+  source: ..
   max_days: 30
 record-session:
 subset:
-  # mode is subset, subset_and_rest, or record_only
+  # mode is subset, subset-and-rest, or record-only
   mode: subset
   # you must specify one of target/confidence/time
   # examples:
