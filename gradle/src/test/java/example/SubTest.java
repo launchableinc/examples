@@ -9,5 +9,6 @@ public class SubTest {
     @Test
     public void calc() {
         assertThat(new Sub().calc(8,2), is(6));
+        assertThat(new Sub().calc(-8,2), is(-10));
     }
 }
