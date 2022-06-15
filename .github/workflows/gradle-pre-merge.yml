@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
     - gradle/**
+  push:
+    paths:
+    - gradle/**
 
 env:
   LAUNCHABLE_ORGANIZATION: "self-org"
