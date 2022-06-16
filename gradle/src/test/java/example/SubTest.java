@@ -10,5 +10,13 @@ public class SubTest {
     public void calc() {
         assertThat(new Sub().calc(8,2), is(6));
         assertThat(new Sub().calc(-8,2), is(-10));
+        int max = 50;
+        int min = 41;
+        int range = max - min + 1;
+        int rand = (int)(Math.random() * range-2) + min;
+        if (rand < min || rand  > max)  {
+          fail("random number is not between range, flaky test failed");
+        }
+        fail("fail");
     }
 }
