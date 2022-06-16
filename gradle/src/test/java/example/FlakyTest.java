@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
         int max = 50;
         int min = 41;
         int range = max - min + 1;
-        int rand = (int)(Math.random() * range-2) + min;
+        int rand = (int)(Math.random() * (range-3)) + min;
         if (rand < min || rand  > max)  {
           fail("random number is not between range, flaky test failed");
         }
