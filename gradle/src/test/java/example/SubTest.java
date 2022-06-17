@@ -17,5 +17,10 @@ public class SubTest {
         if (rand < min || rand  > max)  {
           fail("random number is not between range, flaky test failed");
         }
+        int rand2 = (int)(Math.random());
+        int isOdd = (rand2 % 2);
+        if ( isOdd == 1 ) {
+            fail("flaky failed");
+        }
     }
 }
