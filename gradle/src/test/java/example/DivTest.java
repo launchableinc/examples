@@ -18,4 +18,11 @@ public class DivTest {
         assertThat(new Div().calc(-5,-1), is(5));
         assertThat(new Div().calc(25,5), is(5));
     }
+    @Test
+    public void calc2() {
+        assertThat(new Div().calc(100,20), is(5));
+        assertThat(new Div().calc(5,1), is(5));
+        assertThat(new Div().calc(-5,-1), is(5));
+        assertThat(new Div().calc(25,5), is(5));
+    }
 }
