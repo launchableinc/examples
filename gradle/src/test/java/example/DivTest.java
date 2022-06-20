@@ -4,8 +4,11 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
+
 
 public class DivTest {
+    @Ignore		
     @Test
     public void calc() {
         assertThat(new Div().calc(10,2), is(5));
