@@ -26,8 +26,8 @@ dependencies {
 }
 
 test {
-    exclude '/src/test/java/example/FlakyTest.java'
-    exclude '/src/test/java/example/SubTest.java'
+    exclude 'gradle/src/test/java/example/FlakyTest.java'
+    exclude 'gradle/src/test/java/example/SubTest.java'
     exclude '/src/test/java/example/AddTest.java'
     exclude '/src/test/java/example/MulTest.java'
     exclude '/src/test/java/example/DivTest.java'
