@@ -24,3 +24,7 @@ dependencies {
     // 'test.useTestNG()' to your build script.
     testImplementation 'junit:junit:4.12'
 }
+
+test {
+    exclude '/src/test/java/example/FlakyTest.java'
+}
