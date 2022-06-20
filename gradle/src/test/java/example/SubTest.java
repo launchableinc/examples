@@ -22,15 +22,5 @@ public class SubTest {
         if ( isOdd == 1 ) {
             fail("flaky failed");
         }
-        rand2 = (int)(Math.random());
-        isOdd = (rand2 % 2);
-        if ( isOdd == 1 ) {
-            fail("flaky failed");
-        }
-        rand2 = (int)(Math.random());
-        isOdd = (rand2 % 2);
-        if ( isOdd == 1 ) {
-            fail("flaky failed");
-        }
     }
 }
