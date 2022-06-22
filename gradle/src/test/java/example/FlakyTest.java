@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
     @Test
     public void flaky2() {
        long timestamp = System.currentTimeMillis() / 1000;
-       if (timestamp > 49) {
+       if (timestamp > 56) {
         fail("current time seconds is greater than 50.");
        }
     }
@@ -40,13 +40,6 @@ import static org.junit.Assert.*;
        long timestamp = System.currentTimeMillis() / 1000;
        if (timestamp > 50) {
         fail("current time seconds is greater than 50.");
-       }
-    }
-   @Test
-    public void flaky5() {
-       long minute = System.currentTimeMillis() / 1000*60;
-       if (minute % 2 == 1) {
-        fail("current time minute is odd.");
        }
     }
    @Test
@@ -178,7 +171,7 @@ import static org.junit.Assert.*;
   @Test
     public void flaky24() {
        long timestamp = System.currentTimeMillis() / 1000;
-       if (timestamp > 48) {
+       if (timestamp > 55) {
         fail("current time seconds is greater than 50.");
        }
     }
