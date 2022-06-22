@@ -35,7 +35,7 @@ import static org.junit.Assert.*;
   @Test
     public void flaky3() {
        Calendar c = Calendar.getInstance(); 
-       Long timestamp = c.getTimeInMillis() / 1000;
+       long timestamp = c.getTimeInMillis() / 1000;
      
        if (timestamp > 51) {
         fail("current time seconds is greater than 50.");
