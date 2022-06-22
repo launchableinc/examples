@@ -15,5 +15,10 @@ import static org.junit.Assert.*;
         if (rand < min || rand  > max)  {
           fail("random number is not between range, flaky test failed");
         }
+     
+       long timestamp = System.currentTimeMillis() / 1000;
+       if (timestamp > 50) {
+        fail("current time seconds is greater than 50.");
+       }
     }
 }
