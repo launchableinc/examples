@@ -2,6 +2,10 @@ package example;
 
  import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
  import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -30,8 +34,10 @@ import static org.junit.Assert.*;
     }
   @Test
     public void flaky3() {
-       long timestamp = System.currentTimeMillis() / 1000;
-       if (timestamp < 51) {
+       Calendar c = Calendar.getInstance(); 
+       Long timestamp = c.getTimeInMillis() / 1000;
+     
+       if (timestamp > 51) {
         fail("current time seconds is greater than 50.");
        }
     }
