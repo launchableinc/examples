@@ -37,7 +37,12 @@ jobs:
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
       - name: Subset
-        run: launchable subset --target 30% maven src/test/java > subset.txt
+        run: |
+          launchable subset --target 30% maven src/test/java \
+          > >(tee subset.txt) \
+          2> >(tee subset-result.txt >&2)
+          cat subset-result.txt | grep 'subset-id' | awk -F'`'  '{print $2}' | awk -F' ' '{print $5}' > subset-id.txt
+           launchable inspect subset --subset-id $(cat subset-id.txt)
       - name: Test
         run: LAUNCHABLE_SUBSET_FILE_PATH=subset.txt mvn test
       - name: Record
