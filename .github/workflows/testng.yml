@@ -1,0 +1,50 @@
+name: TestNG
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "testng/**"
+  pull_request:
+    paths:
+      - "testng/**"
+
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_TESTNG }}
+  LAUNCHABLE_DEBUG: 1
+  LAUNCHABLE_REPORT_ERROR: 1
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: testng
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          java-version: 8
+          distribution: 'adopt'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install wheel setuptools_scm
+          pip install launchable
+      - run: "launchable verify"
+      - name: Record commits and build
+        run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
+      - name: Subset
+        run: |
+          launchable subset --target 30% maven src/test/java \
+          > >(tee subset.txt) \
+          2> >(tee subset-result.txt >&2)
+          cat subset-result.txt | grep 'subset-id' | awk -F'`'  '{print $2}' | awk -F' ' '{print $5}' > subset-id.txt
+           launchable inspect subset --subset-id $(cat subset-id.txt)
+      - name: Test
+        run: LAUNCHABLE_SUBSET_FILE_PATH=subset.txt mvn test
+      - name: Record
+        run: launchable record tests maven ./**/target/surefire-reports
+        if: always()
