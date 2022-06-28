@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
         }
      
        long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 50) {
         fail("current time seconds is greater than 50.");
        }
@@ -29,8 +29,7 @@ import static org.junit.Assert.*;
     @Test
     public void flaky2() {
        long timestamp = System.currentTimeMillis() / 1000;
-       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 56) {
         fail("current time seconds is greater than 50.");
        }
@@ -38,9 +37,8 @@ import static org.junit.Assert.*;
   @Test
     public void flaky3() {
        Calendar c = Calendar.getInstance(); 
-       long timestamp = c.getTimeInMillis() / 1000;
         long timestamp = System.currentTimeMillis() / 1000;
-        timestamp = timestamp % 60
+        timestamp = timestamp % 60;
      
        if (timestamp > 51) {
         fail("current time seconds is greater than 50.");
@@ -49,39 +47,31 @@ import static org.junit.Assert.*;
   @Test
     public void flaky4() {
        long timestamp = System.currentTimeMillis() / 1000;
-      System.out.print(timestamp);
-       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 50) {
         fail("current time seconds is greater than 50.");
        }
     }
    @Test
     public void flaky6() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 50) {
         fail("current time seconds is greater than 50.");
        }
     }
    @Test
     public void flaky7() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 52) {
         fail("current time seconds is greater than 50.");
        }
     }
    @Test
     public void flaky8() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 53) {
         fail("current time seconds is greater than 50.");
        }
@@ -96,20 +86,16 @@ import static org.junit.Assert.*;
     }
     @Test
     public void flaky10() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 52) {
         fail("current time seconds is greater than 50.");
        }
     }
    @Test
     public void flaky11() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 53) {
         fail("current time seconds is greater than 50.");
        }
@@ -125,20 +111,16 @@ import static org.junit.Assert.*;
     }
     @Test
     public void flaky13() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 52) {
         fail("current time seconds is greater than 50.");
        }
     }
    @Test
     public void flaky14() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 53) {
         fail("current time seconds is greater than 50.");
        }
@@ -153,20 +135,16 @@ import static org.junit.Assert.*;
     }
     @Test
     public void flaky16() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 52) {
         fail("current time seconds is greater than 50.");
        }
     }
    @Test
     public void flaky17() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 53) {
         fail("current time seconds is greater than 50.");
        }
@@ -196,50 +174,40 @@ import static org.junit.Assert.*;
     }
   @Test
     public void flaky21() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 52) {
         fail("current time seconds is greater than 50.");
        }
     }
   @Test
     public void flaky22() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 52) {
         fail("current time seconds is greater than 50.");
        }
     }
   @Test
     public void flaky23() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 53) {
         fail("current time seconds is greater than 50.");
        }
     }
   @Test
     public void flaky24() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 55) {
         fail("current time seconds is greater than 50.");
        }
     }
   @Test
     public void flaky25() {
-       long timestamp = System.currentTimeMillis() / 1000;
-     System.out.print(timestamp);
       long timestamp = System.currentTimeMillis() / 1000;
-       timestamp = timestamp % 60
+       timestamp = timestamp % 60;
        if (timestamp > 54) {
         fail("current time seconds is greater than 50.");
        }
