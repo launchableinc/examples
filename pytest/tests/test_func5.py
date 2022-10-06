@@ -7,7 +7,7 @@ import pytest
     [
         ("3+5", 8),
         ("2+4", 6),
-        ("6*9", 42),
+        ("6*9", 54),
     ],
 )
 def test_func5(test_input, expected):
