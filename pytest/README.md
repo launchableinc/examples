@@ -6,7 +6,7 @@
 ```shell
 $ BUILD_NAME=test
 $ launchable record build --name ${BUILD_NAME} --source ..
-Launchable recorded 1 commit from repository /Users/shibuiyuusuke/launchable/samples/examples
+Launchable recorded 1 commit from repository ~/launchable/samples/examples
 Launchable recorded build test to workspace launchableinc/mothership with commits from 1 repository:
 
 | Name   | Path   | HEAD Commit                              |
@@ -14,64 +14,36 @@ Launchable recorded build test to workspace launchableinc/mothership with commit
 | ..     | ..     | 7f74ad2e0e72481a32f645e8b5425d6ece19c3d9 |
 
 
-$ pytest --junitxml=./report.xml tests/ 
+$ pytest --junitxml=report/report.xml tests/
 config=<class '_pytest.config.Config'>
-============================================================ test session starts =============================================================
+=========================================================== test session starts ============================================================
 platform darwin -- Python 3.10.4, pytest-7.1.2, pluggy-1.0.0
-rootdir: /Users/shibuiyuusuke/launchable/samples/examples/pytest
+rootdir: ~/launchable/samples/examples/pytest
 plugins: launchable-0.1.0
 collected 15 items
 
-tests/funcs3_test.py .F                                                                                                                [ 13%]
-tests/test_func5.py ..F....                                                                                                            [ 60%]
-tests/test_funcs1.py .F                                                                                                                [ 73%]
-tests/test_funcs2.py ..                                                                                                                [ 86%]
-tests/test_mod.py .                                                                                                                    [ 93%]
-tests/fooo/test_func4.py .                                                                                                             [100%]
+tests/funcs3_test.py .F                                                                                                              [ 13%]
+tests/test_func5.py .......                                                                                                          [ 60%]
+tests/test_funcs1.py ..                                                                                                              [ 73%]
+tests/test_funcs2.py ..                                                                                                              [ 86%]
+tests/test_mod.py .                                                                                                                  [ 93%]
+tests/fooo/test_func4.py .                                                                                                           [100%]
 
-================================================================== FAILURES ==================================================================
-_________________________________________________________________ test_func5 _________________________________________________________________
+================================================================= FAILURES =================================================================
+________________________________________________________________ test_func5 ________________________________________________________________
 
     def test_func5():
 >       assert 1 == False
 E       assert 1 == False
 
 tests/funcs3_test.py:5: AssertionError
-_____________________________________________________________ test_func5[6*9-42] _____________________________________________________________
-
-test_input = '6*9', expected = 42
-
-    @pytest.mark.parametrize(
-        ("test_input", "expected"),
-        [
-            ("3+5", 8),
-            ("2+4", 6),
-            ("6*9", 42),
-        ],
-    )
-    def test_func5(test_input, expected):
->       assert eval(test_input) == expected
-E       AssertionError: assert 54 == 42
-E        +  where 54 = eval('6*9')
-
-tests/test_func5.py:14: AssertionError
-_________________________________________________________________ test_func2 _________________________________________________________________
-
-    def test_func2():
->       assert 1 == False
-E       assert 1 == False
-
-tests/test_funcs1.py:5: AssertionError
---------------------------- generated xml file: /Users/shibuiyuusuke/launchable/samples/examples/pytest/report.xml ---------------------------
-========================================================== short test summary info ===========================================================
+---------------------- generated xml file: ~/launchable/samples/examples/pytest/report/report.xml -----------------------
+========================================================= short test summary info ==========================================================
 FAILED tests/funcs3_test.py::test_func5 - assert 1 == False
-FAILED tests/test_func5.py::test_func5[6*9-42] - AssertionError: assert 54 == 42
-FAILED tests/test_funcs1.py::test_func2 - assert 1 == False
-======================================================== 3 failed, 12 passed in 4.18s ========================================================
-[22-10-06 12:20:45] shibuiyuusuke:~/launchable/samples/examples/pytest
+======================================================= 1 failed, 14 passed in 4.14s =======================================================
 
 
-$ launchable record tests --build ${BUILD_NAME} pytest .
+$ launchable record tests --build ${BUILD_NAME} pytest report
 Launchable recorded tests for build test (test session 28) to workspace launchableinc/mothership from 1 files:
 
 |   Files found |   Tests found |   Tests passed |   Tests failed |   Total duration (min) |
@@ -161,7 +133,7 @@ $ pytest $(cat subset.txt)
 config=<class '_pytest.config.Config'>
 ============================================================ test session starts =============================================================
 platform darwin -- Python 3.10.4, pytest-7.1.2, pluggy-1.0.0
-rootdir: /Users/shibuiyuusuke/launchable/samples/examples/pytest
+rootdir: ~/launchable/samples/examples/pytest
 plugins: launchable-0.1.0
 collected 8 items
 
