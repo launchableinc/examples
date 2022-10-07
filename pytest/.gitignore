@@ -1,3 +1,6 @@
 test-results
 .pytest_cache
 **/*.pyc
+.launchable
+__pycache__
+subset.txt

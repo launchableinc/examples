@@ -92,6 +92,31 @@ See https://docs.gradle.org/7.0.2/userguide/command_line_interface.html#sec:comm
 
 BUILD SUCCESSFUL in 1s
 3 actionable tasks: 3 executed
+
+
+# Apply `--split` option to split the subset into multiple bins to run simultaneously in parallel test environment.
+$ launchable subset --target ${CONFIDENCE} --build ${BUILD_NAME} --split gradle src/test/java
+subset/38
+Your model is currently in training
+Launchable created subset 38 for build test (test session 27) in workspace launchableinc/mothership
+
+|           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
+|-----------|--------------|--------------------------|----------------------------|
+| Subset    |            2 |                       40 |                3.33333e-05 |
+| Remainder |            3 |                       60 |                5e-05       |
+|           |              |                          |                            |
+| Total     |            5 |                      100 |                8.33333e-05 |
+
+Run `launchable inspect subset --subset-id 38` to view full subset details
+
+
+# Request for splitted test bin of 1/2.
+$ launchable split-subset --subset-id subset/38 --bin 1/2 gradle
+--tests example.AddTest
+
+# Request for splitted test bin of 2/2.
+$ launchable split-subset --subset-id subset/38 --bin 2/2 gradle
+--tests example.MulTest
 ```
 
 You can see your test report in `build/reports/tests/test/index.html`.

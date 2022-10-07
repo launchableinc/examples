@@ -95,4 +95,30 @@ $ cat report.xml
         <testcase classname="rocket-car-gotest" name="TestExample3" time="0.000"></testcase>
     </testsuite>
 </testsuites>
+
+
+# Apply `--split` option to split the subset into multiple bins to run simultaneously in parallel test environment.
+$ go test -list . ./... | \
+    launchable subset \
+    --build ${BUILD_NAME} \
+    --confidence ${CONFIDENCE} \
+    --split \
+    go-test
+subset/36
+Your model is currently in training
+Launchable created subset 36 for build test (test session 26) in workspace launchableinc/mothership
+
+|           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
+|-----------|--------------|--------------------------|----------------------------|
+| Subset    |            7 |                      100 |                0.000116667 |
+| Remainder |            0 |                        0 |                0           |
+|           |              |                          |                            |
+| Total     |            7 |                      100 |                0.000116667 |
+
+Run `launchable inspect subset --subset-id 36` to view full subset details
+
+
+# Request for splitted test bin of 1/2.
+$ launchable split-subset --subset-id subset/36 --bin 1/2 go-test
+^ExampleGreeting$|^TestExample1$|^BenchmarkGreeting$|^TestGreeting$
 ```
