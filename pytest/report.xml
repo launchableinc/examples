@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+    <testsuite name="pytest" errors="0" failures="3" skipped="0" tests="15" time="4.087" timestamp="2022-10-06T14:19:26.227388" hostname="ip-192-168-3-4.us-west-2.compute.internal">
+        <testcase classname="tests.funcs3_test" name="test_func4" time="0.001" />
+        <testcase classname="tests.funcs3_test" name="test_func5" time="0.001">
+            <failure message="assert 1 == False">def test_func5():
+&gt;       assert 1 == False
+E       assert 1 == False
+
+tests/funcs3_test.py:5: AssertionError</failure>
+        </testcase>
+        <testcase classname="tests.test_func5" name="test_func5[3+5-8]" time="0.001" />
+        <testcase classname="tests.test_func5" name="test_func5[2+4-6]" time="0.001" />
+        <testcase classname="tests.test_func5" name="test_func5[6*9-42]" time="0.001">
+            <failure message="AssertionError: assert 54 == 42&#10; +  where 54 = eval('6*9')">test_input = '6*9', expected = 42
+
+    @pytest.mark.parametrize(
+        ("test_input", "expected"),
+        [
+            ("3+5", 8),
+            ("2+4", 6),
+            ("6*9", 42),
+        ],
+    )
+    def test_func5(test_input, expected):
+&gt;       assert eval(test_input) == expected
+E       AssertionError: assert 54 == 42
+E        +  where 54 = eval('6*9')
+
+tests/test_func5.py:14: AssertionError</failure>
+        </testcase>
+        <testcase classname="tests.test_func5" name="test_foo[2-0]" time="1.005" />
+        <testcase classname="tests.test_func5" name="test_foo[2-1]" time="1.003" />
+        <testcase classname="tests.test_func5" name="test_foo[3-0]" time="1.006" />
+        <testcase classname="tests.test_func5" name="test_foo[3-1]" time="1.003" />
+        <testcase classname="tests.test_funcs1" name="test_func1" time="0.000" />
+        <testcase classname="tests.test_funcs1" name="test_func2" time="0.001">
+            <failure message="assert 1 == False">def test_func2():
+&gt;       assert 1 == False
+E       assert 1 == False
+
+tests/test_funcs1.py:5: AssertionError</failure>
+        </testcase>
+        <testcase classname="tests.test_funcs2" name="test_func3" time="0.000" />
+        <testcase classname="tests.test_funcs2" name="test_func4" time="0.000" />
+        <testcase classname="tests.test_mod.TestClass" name="test__can_print_aaa" time="0.000" />
+        <testcase classname="tests.fooo.test_func4" name="test_func6" time="0.000" />
+    </testsuite>
+</testsuites>

@@ -108,10 +108,10 @@ $ launchable inspect tests --test-session-id 28
 
 ```shell
 $ BUILD_NAME=test
-$ CONFIDENCE="50%"
+$ TARGET="50%"
 
 
-$ launchable subset --target ${CONFIDENCE} --build ${BUILD_NAME} pytest . > subset.txt
+$ launchable subset --target ${TARGET} --build ${BUILD_NAME} pytest . > subset.txt
 Your model is currently in training
 Launchable created subset 47 for build ppp (test session 29) in workspace launchableinc/mothership
 
@@ -174,7 +174,7 @@ tests/test_funcs2.py .                                                          
 
 
 
-$ launchable subset --target ${CONFIDENCE} --build ${BUILD_NAME} --split pytest .
+$ launchable subset --target ${TARGET} --build ${BUILD_NAME} --split pytest .
 subset/48
 Your model is currently in training
 Launchable created subset 48 for build test (test session 5) in workspace launchableinc/mothership
