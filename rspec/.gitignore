@@ -42,5 +42,3 @@ yarn-debug.log*
 /reports/*
 subset.txt
 remainder.txt
-
-report/*

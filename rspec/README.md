@@ -24,11 +24,11 @@ Launchable recorded build test to workspace launchableinc/example with commits f
 
 
 # Run test.
-$ bundle exec rspec --format RspecJunitFormatter --out report/rspec.xml
+$ bundle exec rspec --format RspecJunitFormatter --out reports/rspec.xml
 
 
 # Record test.
-$ launchable record tests --build ${BUILD_NAME} rspec report
+$ launchable record tests --build ${BUILD_NAME} rspec reports
 Launchable recorded tests for build test (test session 5) to workspace launchableinc/example from 1 files:
 
 |   Files found |   Tests found |   Tests passed |   Tests failed |   Total duration (min) |
@@ -38,7 +38,7 @@ Launchable recorded tests for build test (test session 5) to workspace launchabl
 Visit https://app.launchableinc.com/organizations/launchableinc/workspaces/mothership/test-sessions/5 to view uploaded test results (or run `launchable inspect tests --test-session-id 5`)
 
 
-$ cat report/rspec.xml
+$ cat reports/rspec.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite name="rspec" tests="15" skipped="0" failures="0" errors="0" time="0.191767" timestamp="2022-10-28T09:05:18+09:00" hostname="ip-192-168-3-4.us-west-2.compute.internal">
 <properties>
@@ -122,7 +122,7 @@ spec/requests/comments_spec.rb
 
 
 # Run subset of test.
-$ bundle exec rspec $(cat subset.txt) --format d --format RspecJunitFormatter --out report/rspec.xml
+$ bundle exec rspec $(cat subset.txt) --format d --format RspecJunitFormatter --out reports/rspec.xml
 
 Article
   validation
@@ -138,7 +138,7 @@ Finished in 0.06666 seconds (files took 1.21 seconds to load)
 4 examples, 0 failures
 
 
-$ cat report/rspec.xml
+$ cat reports/rspec.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite name="rspec" tests="4" skipped="0" failures="0" errors="0" time="0.066655" timestamp="2022-10-28T09:10:42+09:00" hostname="ip-192-168-3-4.us-west-2.compute.internal">
 <properties>
