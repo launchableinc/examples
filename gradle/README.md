@@ -7,7 +7,7 @@
 $ BUILD_NAME=test
 $ launchable record build --name ${BUILD_NAME} --source ..
 Launchable recorded 1 commit from repository ~/launchable/samples/examples
-Launchable recorded build test to workspace launchableinc/mothership with commits from 1 repository:
+Launchable recorded build test to workspace launchableinc/example with commits from 1 repository:
 
 | Name   | Path   | HEAD Commit                              |
 |--------|--------|------------------------------------------|
@@ -27,7 +27,7 @@ BUILD SUCCESSFUL in 1s
 
 # Record test result
 $ launchable record tests --build ${BUILD_NAME} gradle ./build/test-results/test
-Launchable recorded tests for build test (test session 15) to workspace launchableinc/mothership from 4 files:
+Launchable recorded tests for build test (test session 15) to workspace launchableinc/example from 4 files:
 
 |   Files found |   Tests found |   Tests passed |   Tests failed |   Total duration (min) |
 |---------------|---------------|----------------|----------------|------------------------|
@@ -66,7 +66,7 @@ $ CONFIDENCE="80%"
 # Request subset of test up to 50%.
 $ launchable subset --target ${CONFIDENCE} --build ${BUILD_NAME} gradle src/test/java > subset.txt
 Your model is currently in training
-Launchable created subset 17 for build test (test session 15) in workspace launchableinc/mothership
+Launchable created subset 17 for build test (test session 15) in workspace launchableinc/example
 
 |           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
 |-----------|--------------|--------------------------|----------------------------|
@@ -120,7 +120,7 @@ You can see your test report in `build/reports/tests/test/index.html`.
 $ launchable subset --target ${CONFIDENCE} --build ${BUILD_NAME} --split gradle src/test/java
 subset/38
 Your model is currently in training
-Launchable created subset 38 for build test (test session 27) in workspace launchableinc/mothership
+Launchable created subset 38 for build test (test session 27) in workspace launchableinc/example
 
 |           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
 |-----------|--------------|--------------------------|----------------------------|

@@ -7,7 +7,7 @@
 $ BUILD_NAME=test
 $ launchable record build --name ${BUILD_NAME} --source ..
 Launchable recorded 1 commit from repository ~/launchable/samples/examples
-Launchable recorded build test to workspace launchableinc/mothership with commits from 1 repository:
+Launchable recorded build test to workspace launchableinc/example with commits from 1 repository:
 
 | Name   | Path   | HEAD Commit                              |
 |--------|--------|------------------------------------------|
@@ -44,7 +44,7 @@ FAILED tests/funcs3_test.py::test_func5 - assert 1 == False
 
 
 $ launchable record tests --build ${BUILD_NAME} pytest report
-Launchable recorded tests for build test (test session 28) to workspace launchableinc/mothership from 1 files:
+Launchable recorded tests for build test (test session 28) to workspace launchableinc/example from 1 files:
 
 |   Files found |   Tests found |   Tests passed |   Tests failed |   Total duration (min) |
 |---------------|---------------|----------------|----------------|------------------------|
@@ -85,7 +85,7 @@ $ TARGET="50%"
 
 $ launchable subset --target ${TARGET} --build ${BUILD_NAME} pytest . > subset.txt
 Your model is currently in training
-Launchable created subset 47 for build ppp (test session 29) in workspace launchableinc/mothership
+Launchable created subset 47 for build ppp (test session 29) in workspace launchableinc/example
 
 |           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
 |-----------|--------------|--------------------------|----------------------------|
@@ -149,7 +149,7 @@ tests/test_funcs2.py .                                                          
 $ launchable subset --target ${TARGET} --build ${BUILD_NAME} --split pytest .
 subset/48
 Your model is currently in training
-Launchable created subset 48 for build test (test session 5) in workspace launchableinc/mothership
+Launchable created subset 48 for build test (test session 5) in workspace launchableinc/example
 
 |           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
 |-----------|--------------|--------------------------|----------------------------|
