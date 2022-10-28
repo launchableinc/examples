@@ -1,5 +1,10 @@
 # rspec
 
+## Prerequisites 
+
+- Install [rbenv](https://github.com/rbenv/rbenv)
+- Run `rbenv install` to setup Ruby specified in `.ruby-version`
+
 
 ## Recording test results
 
