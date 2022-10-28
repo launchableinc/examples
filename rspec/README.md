@@ -16,7 +16,7 @@ ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin21]
 $ BUILD_NAME=test
 $ launchable record build --name ${BUILD_NAME} --source ..
 Launchable recorded 3 commits from repository ~/examples
-Launchable recorded build test to workspace example with commits from 1 repository:
+Launchable recorded build test to workspace launchableinc/example with commits from 1 repository:
 
 | Name   | Path   | HEAD Commit                              |
 |--------|--------|------------------------------------------|
@@ -29,7 +29,7 @@ $ bundle exec rspec --format RspecJunitFormatter --out report/rspec.xml
 
 # Record test.
 $ launchable record tests --build ${BUILD_NAME} rspec report
-Launchable recorded tests for build test (test session 5) to workspace example from 1 files:
+Launchable recorded tests for build test (test session 5) to workspace launchableinc/example from 1 files:
 
 |   Files found |   Tests found |   Tests passed |   Tests failed |   Total duration (min) |
 |---------------|---------------|----------------|----------------|------------------------|
@@ -95,7 +95,7 @@ $ TARGET="50%"
 # Request subset.
 $ launchable subset --target ${TARGET} --build ${BUILD_NAME} rspec spec/**/*_spec.rb > subset.txt
 Your model is currently in training
-Launchable created subset 3 for build test (test session 5) in workspace example
+Launchable created subset 3 for build test (test session 5) in workspace launchableinc/example
 
 |           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
 |-----------|--------------|--------------------------|----------------------------|

@@ -106,7 +106,7 @@ $ go test -list . ./... | \
     go-test
 subset/36
 Your model is currently in training
-Launchable created subset 36 for build test (test session 26) in workspace launchableinc/mothership
+Launchable created subset 36 for build test (test session 26) in workspace launchableinc/example
 
 |           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
 |-----------|--------------|--------------------------|----------------------------|
