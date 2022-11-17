@@ -1,0 +1,21 @@
+name: "docker launchable actions"
+description: "sample launchable actions"
+author: "launchableinc"
+inputs:
+  test_runner:
+    required: true
+    description: "test runner name"
+    default: "go-test"
+  report:
+    required: true
+    description: "test report file path"
+    default: "report.xml"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  entrypoint: "launchable"
+  args:
+    - record
+    - tests
+    - ${{ inputs.test_runner }}
+    - ${{ inputs.report }}
