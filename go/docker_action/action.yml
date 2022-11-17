@@ -9,8 +9,7 @@ inputs:
 runs:
   using: "docker"
   image: "Dockerfile"
-  entrypoint: |
-    launchable verify
+  entrypoint: "launchable verify"
 branding:
   icon: "message-square"
   color: "orange"
