@@ -19,9 +19,9 @@ runs:
   image: "Dockerfile"
   entrypoint: "launchable"
   args:
-    - --build
-    - ${{ inputs.build_name }}
     - record
     - tests
+    - --build
+    - ${{ inputs.build_name }}
     - ${{ inputs.test_runner }}
     - ${{ inputs.report }}
