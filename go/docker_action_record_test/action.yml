@@ -2,6 +2,10 @@ name: "docker launchable actions"
 description: "sample launchable actions"
 author: "launchableinc"
 inputs:
+  build_name:
+    required: true
+    description: "build name"
+    default: ""
   test_runner:
     required: true
     description: "test runner name"
@@ -15,6 +19,8 @@ runs:
   image: "Dockerfile"
   entrypoint: "launchable"
   args:
+    - --build
+    - ${{ inputs.build_name }}
     - record
     - tests
     - ${{ inputs.test_runner }}
