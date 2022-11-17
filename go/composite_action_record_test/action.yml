@@ -1,4 +1,4 @@
-name: "composite action install Launchable"
+name: "composite action record test"
 description: "sample composite action"
 author: "launchbleinc"
 inputs:
@@ -6,6 +6,18 @@ inputs:
     required: true
     description: "Python version"
     default: "3.10"
+  build_name:
+    required: true
+    description: "build name"
+    default: ""
+  test_runner:
+    required: true
+    description: "test runner name"
+    default: "go-test"
+  report:
+    required: true
+    description: "test report file path"
+    default: "."
 runs:
   using: "composite"
   steps:
@@ -18,6 +30,9 @@ runs:
       with:
         java-version: 1.8
     - id: install
-      run: pip install launchable
       shell: bash
-    
+      run: pip install launchable
+    - id: "record test"
+      shell: bash
+      run: |
+        launchable record tests --build ${{ inputs.build_name }} ${{ inputs.test_runner }} ${{ inputs.report }}

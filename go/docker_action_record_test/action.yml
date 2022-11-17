@@ -13,7 +13,7 @@ inputs:
   report:
     required: true
     description: "test report file path"
-    default: "report.xml"
+    default: "."
 runs:
   using: "docker"
   image: "Dockerfile"

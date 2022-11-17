@@ -22,7 +22,7 @@ jobs:
         working-directory: go
     steps:
       - uses: actions/checkout@v2
-      - uses: ./go/composite_action_record_test
+      - uses: ./go/composite_action_install
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
@@ -38,5 +38,9 @@ jobs:
       - name: Test
         run: go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
       - name: Record
-        run: launchable record tests go-test report.xml
+        uses: ./go/composite_action_record_test
+        with:
+          build_name: $GITHUB_RUN_ID
+          test_runner: go-test
+          report: .
         if: always()
