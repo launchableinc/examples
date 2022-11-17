@@ -2,13 +2,13 @@ name: "docker launchable actions"
 description: "sample launchable actions"
 author: "launchableinc"
 inputs:
-  test:
+  command:
     required: true
-    description: "something"
-    default: "aaabbb"
+    description: "launchable command"
+    default: "verify"
 runs:
   using: "docker"
   image: "Dockerfile"
   entrypoint: "launchable"
   args:
-    - "verify"
+    - ${{ inputs.command }}

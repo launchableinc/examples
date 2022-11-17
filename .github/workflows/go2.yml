@@ -29,4 +29,8 @@ jobs:
       - name: Install dependencies
         run: |
           go install github.com/jstemmer/go-junit-report@latest
-      - uses: ./go/docker_action
+      - name: verify
+        uses: ./go/docker_action
+        with:
+          command: verify
+
