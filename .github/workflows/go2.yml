@@ -34,11 +34,15 @@ jobs:
         with:
           command: verify
       - name: Record commits and build
-        run: 'record build --name "$GITHUB_RUN_ID" --source ..'
+        uses: ./go/docker_action
+        with:
+          command: 'record build --name "$GITHUB_RUN_ID" --source ..'
       - name: Subset
         run: go test -list="Test|Example" ./... | launchable subset --confidence 80%  go-test > launchable-subset.txt
       - name: Test
         run: go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
-      - name: Record
-        run: "record tests go-test report.xml"
+      - name: Record test
+        uses: ./go/docker_action
+        with:
+          command: "record tests go-test report.xml"
         if: always()
