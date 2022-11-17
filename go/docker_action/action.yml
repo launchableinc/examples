@@ -1,0 +1,16 @@
+name: "docker launchable actions"
+description: "sample launchable actions"
+author: "launchableinc"
+inputs:
+  test:
+    required: true
+    description: "something"
+    default: "aaabbb"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.test }}
+branding:
+  icon: "message-square"
+  color: "orange"
