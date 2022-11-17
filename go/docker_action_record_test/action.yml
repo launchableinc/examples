@@ -22,6 +22,6 @@ runs:
     - record
     - tests
     - --build
-    - ${{ inputs.build_name }}
+    - $GITHUB_RUN_ID
     - ${{ inputs.test_runner }}
     - ${{ inputs.report }}
