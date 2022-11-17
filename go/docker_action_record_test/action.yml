@@ -6,6 +6,10 @@ inputs:
     required: true
     description: "build name"
     default: ""
+  source:
+    required: true
+    description: "build source"
+    default: "."
   test_runner:
     required: true
     description: "test runner name"
@@ -20,8 +24,16 @@ runs:
   entrypoint: "launchable"
   args:
     - record
+    - build
+    - --name
+    - ${{ inputs.build_name }}
+    - --source
+    - ${{ inputs.source }}
+    - "&&"
+    - launchable
+    - record
     - tests
     - --build
-    - $GITHUB_RUN_ID
+    - ${{ inputs.build_name }}
     - ${{ inputs.test_runner }}
     - ${{ inputs.report }}
