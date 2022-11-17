@@ -2,10 +2,6 @@ name: "docker launchable actions"
 description: "sample launchable actions"
 author: "launchableinc"
 inputs:
-  build_name:
-    required: true
-    description: "build name"
-    default: ""
   source:
     required: true
     description: "build source"
@@ -21,19 +17,7 @@ inputs:
 runs:
   using: "docker"
   image: "Dockerfile"
-  entrypoint: "launchable"
+  entrypoint: "/bin/bash"
   args:
-    - record
-    - build
-    - --name
-    - ${{ inputs.build_name }}
-    - --source
-    - ${{ inputs.source }}
-    - "&&"
-    - launchable
-    - record
-    - tests
-    - --build
-    - ${{ inputs.build_name }}
-    - ${{ inputs.test_runner }}
-    - ${{ inputs.report }}
+    - -c
+    - "launchable verify; launchable record build --name $GITHUB_RUN_ID --source ${{ inputs.source }}; launchable record tests --build $GITHUB_RUN_ID ${{ inputs.test_runner }} ${{ inputs.report }}"

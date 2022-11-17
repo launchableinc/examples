@@ -6,6 +6,10 @@ inputs:
     required: true
     description: "Python version"
     default: "3.10"
+  source:
+    required: true
+    description: "build source"
+    default: "."
   test_runner:
     required: true
     description: "test runner name"
@@ -35,7 +39,7 @@ runs:
     - id: record_build
       shell: bash
       run: |
-        launchable record build --name $GITHUB_RUN_ID --source .
+        launchable record build --name $GITHUB_RUN_ID --source ${{ inputs.source }}
     - id: record_test
       shell: bash
       run: |

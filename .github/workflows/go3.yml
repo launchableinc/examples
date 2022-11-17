@@ -34,6 +34,7 @@ jobs:
       - name: Record
         uses: ./go/composite_action_record_test
         with:
+          source: ..
           test_runner: go-test
           report: .
         if: always()
