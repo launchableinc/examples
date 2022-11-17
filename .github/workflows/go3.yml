@@ -22,7 +22,6 @@ jobs:
         working-directory: go
     steps:
       - uses: actions/checkout@v2
-      - uses: ./go/composite_action_install
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
@@ -30,13 +29,11 @@ jobs:
       - name: Install dependencies
         run: |
           go install github.com/jstemmer/go-junit-report@latest
-      - run: "launchable verify"
       - name: Test
         run: go test -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml
       - name: Record
         uses: ./go/composite_action_record_test
         with:
-          build_name: $GITHUB_RUN_ID
           test_runner: go-test
           report: .
         if: always()

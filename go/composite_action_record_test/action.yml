@@ -28,8 +28,15 @@ runs:
     - id: install
       shell: bash
       run: pip install launchable
+    - id: verify
+      shell: bash
+      run: |
+        launchable verify
+    - id: record_build
+      shell: bash
+      run: |
+        launchable record build --name $GITHUB_RUN_ID --source .
     - id: record_test
       shell: bash
       run: |
-        launchable record build --name $GITHUB_RUN_ID --source ..
         launchable record tests --build $GITHUB_RUN_ID ${{ inputs.test_runner }} ${{ inputs.report }}
