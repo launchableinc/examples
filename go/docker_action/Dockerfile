@@ -1,7 +1,7 @@
 FROM python:3.10-slim
 
-RUN apt update && \
-    apt install openjdk-8-jdk && \
+RUN apt -y update && \
+    apt -y install default-jre && \
     pip install launchable
 
 ENTRYPOINT [ "launchable", "verify" ]
