@@ -34,7 +34,7 @@ jobs:
       - name: Record test
         uses: ./go/docker_action_record_test
         with:
-          build_name: test
+          build_name: $GITHUB_RUN_ID
           source: .
           test_runner: go-test
           report: ./go/
