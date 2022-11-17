@@ -36,7 +36,7 @@ jobs:
       - name: Record commits and build
         uses: ./go/docker_action
         with:
-          command: 'record build --name "$GITHUB_RUN_ID" --source ..'
+          command: record build --name "$GITHUB_RUN_ID" --source ..
       - name: Subset
         run: go test -list="Test|Example" ./... | launchable subset --confidence 80%  go-test > launchable-subset.txt
       - name: Test
@@ -44,5 +44,5 @@ jobs:
       - name: Record test
         uses: ./go/docker_action
         with:
-          command: "record tests go-test report.xml"
+          command: record tests go-test report.xml
         if: always()
