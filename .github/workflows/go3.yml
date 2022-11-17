@@ -36,5 +36,5 @@ jobs:
         with:
           source: .
           test_runner: go-test
-          report: .
+          report: ./go/
         if: always()
