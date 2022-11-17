@@ -42,12 +42,10 @@ jobs:
       - run: "launchable verify"
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
-      - name: Subset
-        run: go test -list="Test|Example" ./... | launchable subset --confidence 80%  go-test > launchable-subset.txt
       - name: Test
-        run: go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
+        run: go test -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml
       - name: Record test
-        uses: ./go/docker_action
+        uses: ./go/docker_action_record_test
         with:
           test_runner: go-test
           report: report.xml
