@@ -50,9 +50,6 @@ runs:
       shell: bash
       run: |
         launchable verify
-    - id: pwd
-      shell: bash
-      run: echo $(pwd)
     - id: record_build
       shell: bash
       run: |
@@ -71,9 +68,6 @@ runs:
     - id: run_test
       shell: bash
       run: ${{ inputs.test_command }}
-    - id: pwd2
-      shell: bash
-      run: echo $(pwd)
     - id: record_test
       shell: bash
       run: |
