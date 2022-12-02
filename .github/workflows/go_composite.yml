@@ -37,6 +37,5 @@ jobs:
           source: .
           build_name: $GITHUB_RUN_ID
           no_submodules: "true"
-          test_runner: go-test
           report: ./go/
         if: always()
