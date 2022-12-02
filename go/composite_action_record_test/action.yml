@@ -50,7 +50,7 @@ runs:
     - id: record_build
       shell: bash
       run: |
-        if [ "${no_submodules}" == "false" ]; then
+        if [ "${no_submodules}" == 'false' ]; then
           echo recording submodule
           launchable record build \
             --name ${{ inputs.build_name }} \
