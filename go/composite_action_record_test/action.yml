@@ -57,13 +57,11 @@ runs:
       shell: bash
       run: |
         if [ "${{ inputs.no_submodules }}" == 'false' ]; then
-          echo recording submodule
           launchable record build \
             --name ${{ inputs.build_name }} \
             --max-days ${{ inputs.max_days }} \
             --source ${{ inputs.source }}
         else
-          echo no submodule recording
           launchable record build \
             --name ${{ inputs.build_name }} \
             --max-days ${{ inputs.max_days }} \

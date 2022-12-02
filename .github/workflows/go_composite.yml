@@ -37,5 +37,5 @@ jobs:
           no_submodules: "true"
           test_runner: go-test
           report: ./go/
-          test_command: 'go test -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml'
+          test_command: 'cd go/ && go test -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml'
         if: always()
