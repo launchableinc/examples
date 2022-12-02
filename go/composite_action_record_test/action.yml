@@ -3,20 +3,26 @@ description: "sample composite action"
 author: "launchbleinc"
 inputs:
   python-version:
-    required: true
-    description: "Python version"
+    required: false
+    description: "Python version >= 3.5. Default 3.10"
     default: "3.10"
   source:
-    required: true
-    description: "build source"
+    required: false
+    description: "Path to a local Git repository/workspace. Default current directory."
     default: "."
+  max_days:
+    required: false
+    description: "The maximum number of days to collect commits retroactively. Default 30."
+    default: "30"
+  no_submodules:
+    required: false
+    description: "Stop collecting build information from Git Submodules. Default False."
   test_runner:
     required: true
     description: "test runner name"
-    default: "go-test"
   report:
     required: true
-    description: "test report file path"
+    description: "The test report file path. Defaul ..."
     default: "."
 runs:
   using: "composite"
@@ -39,8 +45,14 @@ runs:
     - id: record_build
       shell: bash
       run: |
-        launchable record build --name $GITHUB_RUN_ID --source ${{ inputs.source }}
+        launchable record build \
+          --name $GITHUB_RUN_ID \
+          --max-days ${{ inputs.max_days }} \
+          --source ${{ inputs.source }}
     - id: record_test
       shell: bash
       run: |
-        launchable record tests --build $GITHUB_RUN_ID ${{ inputs.test_runner }} ${{ inputs.report }}
+        launchable record tests \
+          --build $GITHUB_RUN_ID \
+          ${{ inputs.test_runner }} \
+          ${{ inputs.report }}
