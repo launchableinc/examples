@@ -50,6 +50,9 @@ runs:
       shell: bash
       run: |
         launchable verify
+    - id: pwd
+      shell: bash
+      run: echo $(pwd)
     - id: record_build
       shell: bash
       run: |
