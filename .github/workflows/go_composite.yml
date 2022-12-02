@@ -35,7 +35,7 @@ jobs:
         uses: ./go/composite_action_record_test
         with:
           source: .
-          build_name: $GITHUB_SHA
+          build_name: $GITHUB_RUN_ID
           test_runner: go-test
           report: ./go/
         if: always()
