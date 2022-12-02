@@ -6,6 +6,10 @@ inputs:
     required: false
     description: "Python version >= 3.5. Default 3.10"
     default: "3.10"
+  build_name:
+    required: false
+    description: "The build name."
+    default: $GITHUB_RUN_ID
   source:
     required: false
     description: "Path to a local Git repository/workspace. Default current directory."
@@ -45,12 +49,14 @@ runs:
     - id: record_build
       shell: bash
       run: |
-        command="launchable record build --name ${GITHUB_RUN_ID} --max-days ${{ inputs.max_days }} --source ${{ inputs.source }}"
-        bash -c $command
+        launchable record build \
+          --name ${{ inputs.build_name }} \
+          --max-days ${{ inputs.max_days }} \
+          --source ${{ inputs.source }}
     - id: record_test
       shell: bash
       run: |
         launchable record tests \
-          --build $GITHUB_RUN_ID \
+          --build ${{ inputs.build_name }} \
           ${{ inputs.test_runner }} \
           ${{ inputs.report }}
