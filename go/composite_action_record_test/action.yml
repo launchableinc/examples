@@ -71,6 +71,9 @@ runs:
     - id: run_test
       shell: bash
       run: ${{ inputs.test_command }}
+    - id: pwd
+      shell: bash
+      run: echo $(pwd)
     - id: record_test
       shell: bash
       run: |
