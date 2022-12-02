@@ -50,7 +50,7 @@ runs:
           --max-days ${{ inputs.max_days }} \
           --source ${{ inputs.source }}"
         
-        bach -c ${command}
+        bash -c ${command}
     - id: record_test
       shell: bash
       run: |
