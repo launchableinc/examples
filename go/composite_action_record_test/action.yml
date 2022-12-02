@@ -61,6 +61,7 @@ runs:
             --max-days ${{ inputs.max_days }} \
             --source ${{ inputs.source }} \
             --no_submodules
+        fi
     - id: record_test
       shell: bash
       run: |
