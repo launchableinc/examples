@@ -45,11 +45,7 @@ runs:
     - id: record_build
       shell: bash
       run: |
-        command="launchable record build \
-          --name $GITHUB_RUN_ID \
-          --max-days ${{ inputs.max_days }} \
-          --source ${{ inputs.source }}"
-        
+        command="launchable record build --name ${GITHUB_RUN_ID} --max-days ${{ inputs.max_days }} --source ${{ inputs.source }}"
         bash -c ${command}
     - id: record_test
       shell: bash
