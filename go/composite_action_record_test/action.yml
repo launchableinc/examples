@@ -62,7 +62,7 @@ runs:
             --name ${{ inputs.build_name }} \
             --max-days ${{ inputs.max_days }} \
             --source ${{ inputs.source }} \
-            --no_submodules
+            --no-submodules
         fi
     - id: record_test
       shell: bash
