@@ -29,6 +29,9 @@ inputs:
     required: true
     description: "The test report file path. Defaul ..."
     default: "."
+  test_command:
+    required: true
+    description: "Test command."
 runs:
   using: "composite"
   steps:
@@ -64,6 +67,9 @@ runs:
             --source ${{ inputs.source }} \
             --no-submodules
         fi
+    - id: run_test
+      shell: bash
+      run: ${{ inputs.test_command }}
     - id: record_test
       shell: bash
       run: |
