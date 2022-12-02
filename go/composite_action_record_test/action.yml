@@ -4,7 +4,7 @@ author: "launchbleinc"
 inputs:
   python-version:
     required: false
-    description: "Python version >= 3.5. Default 3.10"
+    description: "Python version >= 3.5 <=3.10. Default 3.10"
     default: "3.10"
   build_name:
     required: false
@@ -21,6 +21,7 @@ inputs:
   no_submodules:
     required: false
     description: "Stop collecting build information from Git Submodules. Default False."
+    default: "false"
   test_runner:
     required: true
     description: "test runner name"
@@ -49,10 +50,17 @@ runs:
     - id: record_build
       shell: bash
       run: |
-        launchable record build \
-          --name ${{ inputs.build_name }} \
-          --max-days ${{ inputs.max_days }} \
-          --source ${{ inputs.source }}
+        if [ "${no_submodules}" != "false" ]; then
+          launchable record build \
+            --name ${{ inputs.build_name }} \
+            --max-days ${{ inputs.max_days }} \
+            --source ${{ inputs.source }}
+        else
+          launchable record build \
+            --name ${{ inputs.build_name }} \
+            --max-days ${{ inputs.max_days }} \
+            --source ${{ inputs.source }} \
+            --no_submodules
     - id: record_test
       shell: bash
       run: |
