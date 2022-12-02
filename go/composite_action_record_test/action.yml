@@ -9,7 +9,7 @@ inputs:
   build_name:
     required: false
     description: "The build name."
-    default: $GITHUB_RUN_ID
+    default: $GITHUB_SHA
   source:
     required: false
     description: "Path to a local Git repository/workspace. Default current directory."
