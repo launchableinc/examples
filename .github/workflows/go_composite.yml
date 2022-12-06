@@ -27,8 +27,9 @@ jobs:
         with:
           go-version: 1.18
       - name: Install dependencies
-        run: |
-          go install github.com/jstemmer/go-junit-report@latest
+        run: go install github.com/jstemmer/go-junit-report@latest
+      - name: test
+        run: go test -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml
       - name: Record
         uses: ./go/composite_action_record_test
         with:
@@ -37,5 +38,4 @@ jobs:
           no_submodules: "true"
           test_runner: go-test
           report: ./go/
-          test_command: 'cd go/ && go test -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml'
         if: always()

@@ -2,7 +2,7 @@ name: "composite action record test"
 description: "sample composite action"
 author: "launchbleinc"
 inputs:
-  python-version:
+  python_version:
     required: false
     description: "Python version >= 3.5 <=3.10. Default 3.10"
     default: "3.10"
@@ -29,9 +29,6 @@ inputs:
     required: true
     description: "The test report file path. Defaul ..."
     default: "."
-  test_command:
-    required: true
-    description: "Test command."
 runs:
   using: "composite"
   steps:
@@ -50,7 +47,7 @@ runs:
       shell: bash
       run: |
         launchable verify
-    - id: record_build
+    - id: record_launchable
       shell: bash
       run: |
         if [ "${{ inputs.no_submodules }}" == 'false' ]; then
@@ -65,12 +62,7 @@ runs:
             --source ${{ inputs.source }} \
             --no-submodules
         fi
-    - id: run_test
-      shell: bash
-      run: ${{ inputs.test_command }}
-    - id: record_test
-      shell: bash
-      run: |
+
         launchable record tests \
           --build ${{ inputs.build_name }} \
           ${{ inputs.test_runner }} \
