@@ -47,7 +47,7 @@ runs:
       shell: bash
       run: |
         launchable verify
-    - id: record_launchable
+    - id: record_build
       shell: bash
       run: |
         if [ "${{ inputs.no_submodules }}" == 'false' ]; then
@@ -62,8 +62,11 @@ runs:
             --source ${{ inputs.source }} \
             --no-submodules
         fi
-
+    - id: record_test
+      shell: bash
+      run: |
         launchable record tests \
           --build ${{ inputs.build_name }} \
           ${{ inputs.test_runner }} \
-          ${{ inputs.report }}
+          ${{ inputs.report }} \
+          --allow-test-before-build
