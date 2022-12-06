@@ -42,7 +42,7 @@ runs:
         java-version: 1.8
     - id: install
       shell: bash
-      run: pip install launchable
+      run: pip install 'launchable>=1.56.1'
     - id: verify
       shell: bash
       run: |
