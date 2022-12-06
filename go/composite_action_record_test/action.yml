@@ -67,6 +67,6 @@ runs:
       run: |
         launchable record tests \
           --build ${{ inputs.build_name }} \
+          --allow-test-before-build \
           ${{ inputs.test_runner }} \
-          ${{ inputs.report }} \
-          --allow-test-before-build
+          ${{ inputs.report }}
