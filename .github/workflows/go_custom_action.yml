@@ -27,12 +27,12 @@ jobs:
         run: |
           go install github.com/jstemmer/go-junit-report@latest
       - name: Test
-        run: go test ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
+        run: go test -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml
       - name: Record
         uses: launchableinc/record-build-and-test-results-action@v1.0.0
         with:
           build_name: $GITHUB_RUN_ID
-          report_path: report.xml
+          report_path: ./
           test_runner: go-test
-          source_path: ..
+          source_path: ./
         if: always()
