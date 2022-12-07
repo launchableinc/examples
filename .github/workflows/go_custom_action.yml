@@ -26,10 +26,8 @@ jobs:
       - name: Install dependencies
         run: |
           go install github.com/jstemmer/go-junit-report@latest
-      - name: Subset
-        run: go test -list="Test|Example" ./... | launchable subset --confidence 80%  go-test > launchable-subset.txt
       - name: Test
-        run: go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
+        run: go test ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
       - name: Record
         uses: launchableinc/record-build-and-test-results-action@v1.0.0
         with:
