@@ -1,0 +1,43 @@
+name: Go custom action
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "go/**"
+  pull_request:
+    paths:
+      - "go/**"
+
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_GO }}
+  LAUNCHABLE_DEBUG: 1
+  LAUNCHABLE_REPORT_ERROR: 1
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: go
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
+      - name: Install dependencies
+        run: |
+          go install github.com/jstemmer/go-junit-report@latest
+      - name: Subset
+        run: go test -list="Test|Example" ./... | launchable subset --confidence 80%  go-test > launchable-subset.txt
+      - name: Test
+        run: go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
+      - name: Record
+        uses: launchableinc/record-build-and-test-results-action@v1.0.0
+        with:
+          build_name: $GITHUB_RUN_ID
+          report_path: report.xml
+          test_runner: go-test
+          source_path: ..
+        if: always()
