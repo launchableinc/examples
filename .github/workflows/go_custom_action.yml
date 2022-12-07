@@ -14,9 +14,6 @@ env:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: go
     steps:
       - uses: actions/checkout@v2
       - name: Set up Go
@@ -27,12 +24,12 @@ jobs:
         run: |
           go install github.com/jstemmer/go-junit-report@latest
       - name: Test
-        run: go test -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml
+        run: cd go && go test -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml
       - name: Record
         uses: launchableinc/record-build-and-test-results-action@v1.0.0
         with:
           build_name: $GITHUB_RUN_ID
-          report_path: ./
+          report_path: ./go
           test_runner: go-test
-          source_path: ./
+          source_path: ./go
         if: always()
