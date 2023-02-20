@@ -1,2 +1,2 @@
-t/math/01_math.t
+t/00_compile.t
 t/easy/01_easy.t
