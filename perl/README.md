@@ -47,18 +47,18 @@ Launchable recorded tests for build test (test session 8) to workspace launchabl
 |---------------|---------------|----------------|----------------|------------------------|
 |             1 |             6 |              6 |              0 |                   0.01 |
 
-Visit https://app.launchableinc.com/organizations/launchableinc/workspaces/mothership/test-sessions/8 to view uploaded test results (or run `launchable inspect tests --test-session-id 8`)
+Visit https://app.launchableinc.com/organizations/launchableinc/workspaces/mothership/test-sessions/8 to view uploaded test results (or run `launchable inspect tests --test-session-id 12`)
 
-$ launchable inspect tests --test-session-id 9
+$ launchable inspect tests --test-session-id 12
 
-| Test Path                                                                |   Duration (sec) | Status   | Uploaded At                 |
-|--------------------------------------------------------------------------|------------------|----------|-----------------------------|
-| file=t/00_compile.t#testsuite=t/00_compile.t#testcase=use Example;       |             0.08 | SUCCESS  | 2023-02-20T05:36:47.148795Z |
-| file=t/easy/01_easy.t#testsuite=t/easy/01_easy.t#testcase=a + b = ab     |             0.16 | SUCCESS  | 2023-02-20T05:36:47.148795Z |
-| file=t/easy/01_easy.t#testsuite=t/easy/01_easy.t#testcase=str_concat {   |             0.00 | SUCCESS  | 2023-02-20T05:36:47.148795Z |
-| file=t/math/01_math.t#testsuite=t/math/01_math.t#testcase=add(1, 2) == 3 |             0.07 | SUCCESS  | 2023-02-20T05:36:47.148795Z |
-| file=t/math/01_math.t#testsuite=t/math/01_math.t#testcase=add            |             0.00 | SUCCESS  | 2023-02-20T05:36:47.148795Z |
-| file=t/math/01_math.t#testsuite=t/math/01_math.t#testcase=double         |             0.00 | SUCCESS  | 2023-02-20T05:36:47.148795Z |
+| Test Path                                     |   Duration (sec) | Status   | Uploaded At                 |
+|-----------------------------------------------|------------------|----------|-----------------------------|
+| file=t/easy/01_easy.t#testcase=a + b = ab     |             0.16 | SUCCESS  | 2023-02-20T06:59:24.813602Z |
+| file=t/easy/01_easy.t#testcase=str_concat {   |             0.00 | SUCCESS  | 2023-02-20T06:59:24.813602Z |
+| file=t/math/01_math.t#testcase=add(1, 2) == 3 |             0.07 | SUCCESS  | 2023-02-20T06:59:24.813602Z |
+| file=t/math/01_math.t#testcase=add            |             0.00 | SUCCESS  | 2023-02-20T06:59:24.813602Z |
+| file=t/math/01_math.t#testcase=double         |             0.00 | SUCCESS  | 2023-02-20T06:59:24.813602Z |
+| file=t/00_compile.t#testcase=use Example;     |             0.09 | SUCCESS  | 2023-02-20T06:59:24.813602Z |
 ```
 
 ## Subsetting your test runs
