@@ -1,2 +1,0 @@
-t/00_compile.t
-t/easy/01_easy.t
