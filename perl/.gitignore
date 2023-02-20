@@ -29,3 +29,6 @@ cover_db/
 MYMETA.*
 
 /Example-*
+
+cpanfile.snapshot
+.launchable

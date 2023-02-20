@@ -1,0 +1,2 @@
+t/math/01_math.t
+t/easy/01_easy.t

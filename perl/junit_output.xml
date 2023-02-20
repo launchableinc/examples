@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites>
+  <testsuite name="t/00_compile.t" errors="0" failures="0" skipped="0" tests="1" time="0.0746428966522217">
+    <system-out>ok 1 - use Example;
+1..1
+</system-out>
+    <testcase name="use Example;" classname="t/00_compile.t" time="0.0731229782104492" />
+  </testsuite>
+</testsuites>
