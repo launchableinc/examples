@@ -1,7 +1,7 @@
 
 # NAME
 
-Example - Example Perl project for Launchable
+Example - Example Perl prove project for Launchable
 
 # USAGE
 
@@ -20,7 +20,7 @@ Please install [`Carton`](https://metacpan.org/pod/Carton) before trying this pr
 $ export JUNIT_NAME_MANGLE=none 
 $ carton exec prove -Ilib --harness TAP::Harness::JUnit -r t
 
-xmlfile argument not supplied, defaulting to "junit_output.xml" at ~/examples/perl/local/lib/perl5/TAP/Harness/JUnit.pm line 125.
+xmlfile argument not supplied, defaulting to "junit_output.xml" at ~/examples/prove/local/lib/perl5/TAP/Harness/JUnit.pm line 125.
 t/00_compile.t .... ok
 t/easy/01_easy.t .. ok
 t/math/01_math.t .. ok
@@ -39,7 +39,7 @@ Launchable recorded build test3 to workspace launchableinc/mothership with commi
 | ..     | ..     | cbf2462dd6a0da7526ecb5d1dc997eb0a1339c59 |
 
 
-$ launchable record tests --build ${BUILD_NAME} perl junit_output.xml
+$ launchable record tests --build ${BUILD_NAME} prove junit_output.xml
 
 Launchable recorded tests for build test (test session 8) to workspace launchableinc/mothership from 1 files:
 
@@ -67,7 +67,7 @@ $ launchable inspect tests --test-session-id 12
 $ BUILD_NAME=test
 $ TARGET="50%"
 
-$ find ./t -name '*.t' | launchable subset --target ${TARGET} --build ${BUILD_NAME} --rest rest.txt perl > subset.txt 
+$ find ./t -name '*.t' | launchable subset --target ${TARGET} --build ${BUILD_NAME} --rest rest.txt prove > subset.txt 
 
 Your model is currently in training
 Launchable created subset 6 for build test2 (test session 9) in workspace launchableinc/mothership
@@ -91,7 +91,7 @@ $ launchable inspect subset --subset-id 6
 
 $ carton exec prove -Ilib --harness TAP::Harness::JUnit -r $(cat subset.txt)
 
-xmlfile argument not supplied, defaulting to "junit_output.xml" at ~/examples/perl/local/lib/perl5/TAP/Harness/JUnit.pm line 125.
+xmlfile argument not supplied, defaulting to "junit_output.xml" at ~/examples/prove/local/lib/perl5/TAP/Harness/JUnit.pm line 125.
 t/00_compile.t .. ok   
 All tests successful.
 Files=1, Tests=1, 0.0880508 wallclock secs ( 0.01 usr  0.01 sys +  0.05 cusr  0.01 csys =  0.08 CPU)
@@ -100,14 +100,14 @@ Result: PASS
 
 # DESCRIPTION
 
-This is an example usage of Launchable to Perl test.
+This is an example usage of Launchable to Perl prove test.
 
 # LICENSE
 
 Copyright (C) Konboi.
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+it under the same terms as Perl prove itself.
 
 # AUTHOR
 
