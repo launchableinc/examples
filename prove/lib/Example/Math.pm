@@ -13,6 +13,7 @@ sub add {
 
 sub double {
   my $a = shift;
+  sleep(1);
 
   return $a * 2;
 }

@@ -22,4 +22,6 @@ subtest 'double' => sub {
     is(Example::Math::double($b), 6, "$b + 2");
 };
 
+is(Example::Math::add(3, 2), 5, "add(3, 2) == 5");
+
 done_testing;
