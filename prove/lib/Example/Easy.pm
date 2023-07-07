@@ -6,7 +6,7 @@ use utf8;
 
 sub str_concat {
     my ($a, $b) = @_;
-    sleep(2);
+    sleep(1);
 
     return $a.$b;
 }

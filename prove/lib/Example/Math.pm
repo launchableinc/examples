@@ -6,7 +6,7 @@ use utf8;
 
 sub add {
   my ($a, $b) = @_;
-  sleep(3);
+  sleep(2);
 
   return $a + $b;
 }

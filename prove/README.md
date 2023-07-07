@@ -18,7 +18,7 @@ Please install [`Carton`](https://metacpan.org/pod/Carton) before trying this pr
 
 ```sh
 $ export JUNIT_NAME_MANGLE=none 
-$ carton exec prove -Ilib --harness TAP::Harness::JUnit -r t
+$ carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r --timer t > junit_output.xml
 
 xmlfile argument not supplied, defaulting to "junit_output.xml" at ~/examples/prove/local/lib/perl5/TAP/Harness/JUnit.pm line 125.
 t/00_compile.t .... ok
