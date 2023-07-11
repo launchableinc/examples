@@ -11,6 +11,7 @@ Please install [`Carton`](https://metacpan.org/pod/Carton) before trying this pr
 
 ```sh
  $ cpanm Carton (or cpan Carton)
+ $ cpm install
  $ carton install
 ```
 

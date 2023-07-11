@@ -5,4 +5,3 @@ on 'test' => sub {
     requires 'Test2::V0';
     requires 'TAP::Formatter::JUnit', git => 'https://github.com/shibuiwilliam/TAP-Formatter-JUnit.git';
 };
-
