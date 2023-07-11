@@ -7,7 +7,7 @@ Example - Example Perl prove project for Launchable
 
 ## Install dependencies
 
-Please install [`Carton`](https://metacpan.org/pod/Carton) before trying this project.
+Please install [`Carton`](https://metacpan.org/pod/Carton) before trying this project. Also, use [TAP::Formatter::JUnit](https://github.com/bleargh45/TAP-Formatter-JUnit) for generating JUnit XML report. The [TAP::Formatter::JUnit](https://github.com/bleargh45/TAP-Formatter-JUnit) is included in the [cpanfile](./cpanfile).
 
 ```sh
  $ cpanm Carton (or cpan Carton)
@@ -17,18 +17,44 @@ Please install [`Carton`](https://metacpan.org/pod/Carton) before trying this pr
 ## Run tests
 
 ```sh
-$ export JUNIT_NAME_MANGLE=none 
-$ carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r --timer t > junit_output.xml
+$ carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml
 
-xmlfile argument not supplied, defaulting to "junit_output.xml" at ~/examples/prove/local/lib/perl5/TAP/Harness/JUnit.pm line 125.
-t/00_compile.t .... ok
-t/easy/01_easy.t .. ok
-t/math/01_math.t .. ok
-All tests successful.
-Files=3, Tests=6, 0.092551 wallclock secs ( 0.01 usr  0.00 sys +  0.06 cusr  0.01 csys =  0.08 CPU)
-Result: PASS
+#   Failed test 'add(1, 2) == 5'
+#   at t/fail/01_fail.t line 9.
+#          got: '3'
+#     expected: '5'
 
-$ BUILD_NAME=test
+# Failed test 'add(1, 2) == 5'
+# at t/fail/02_fail.t line 9.
+# +-----+----+-------+
+# | GOT | OP | CHECK |
+# +-----+----+-------+
+# | 3   | eq | 5     |
+# +-----+----+-------+
+
+    #   Failed test '1 + 2'
+    #   at t/fail/01_fail.t line 14.
+    #          got: '3'
+    #     expected: '4'
+    # Looks like you failed 1 test of 1.
+
+#   Failed test 'add'
+#   at t/fail/01_fail.t line 15.
+# Tests were run but no plan was declared and done_testing() was not seen.
+    # Failed test '1 + 2'
+    # at t/fail/02_fail.t line 14.
+    # +-----+----+-------+
+    # | GOT | OP | CHECK |
+    # +-----+----+-------+
+    # | 3   | eq | 4     |
+    # +-----+----+-------+
+
+# Failed test 'add'
+# at t/fail/02_fail.t line 15.
+# Tests were run but no plan was declared and done_testing() was not seen.
+# Seeded srand with seed '20230711' from local date.
+
+$ BUILD_NAME=test_perl
 $ launchable record build --name ${BUILD_NAME} --source ..
 
 Launchable recorded 1 commit from repository ~/examples
