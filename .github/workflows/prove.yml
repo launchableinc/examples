@@ -37,7 +37,7 @@ jobs:
           perl-version: '5.34'
       - name: Install dependencies
         run: |
-          cpanm Carton
+          cpan Carton
           cpm install
           carton install
       - run: "launchable verify"
@@ -47,7 +47,6 @@ jobs:
         run: carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml
       - name: Record
         run: launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml
-        if: always()
       - name: Subset
         run: find ./t -name '*.t' | launchable subset --target ${TARGET} --build ${BUILD_NAME} --rest rest.txt prove > subset.txt 
       - name: Subset test
