@@ -1,15 +1,13 @@
 name: PerlProve
 
-on: [pull_request]
-#   # push:
-#   #   branches: [master]
-#   #   paths:
-#   #     - "prove/**"
-#   pull_request:
-#     branches:
-#       - master
-#     paths:
-#       - "prove/**"
+on:
+  push:
+    branches: [master]
+    paths:
+      - "prove/**"
+  pull_request:
+    paths:
+      - "prove/**"
 
 env:
   LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_PROVE }}
