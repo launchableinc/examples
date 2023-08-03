@@ -1,0 +1,54 @@
+name: PerlProve
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "prove/**"
+  pull_request:
+    paths:
+      - "prove/**"
+
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_PROVE }}
+  LAUNCHABLE_DEBUG: 1
+  LAUNCHABLE_REPORT_ERROR: 1
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: prove
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install wheel setuptools_scm
+          pip install launchable
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.34'
+      - name: Install dependencies
+        run: |
+          cpanm Carton
+          cpm install
+          carton install
+      - run: "launchable verify"
+      - name: Record commits and build
+        run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
+      - name: Test
+        run: carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml
+      - name: Record
+        run: launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml
+        if: always()
+      - name: Subset
+        run: find ./t -name '*.t' | launchable subset --target ${TARGET} --build ${BUILD_NAME} --rest rest.txt prove > subset.txt 
+      - name: Subset test
+        run: carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer $(cat subset.txt)
