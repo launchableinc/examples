@@ -34,4 +34,4 @@ cpanfile.snapshot
 .launchable
 subset.txt
 rest.txt
-
+*.xml
