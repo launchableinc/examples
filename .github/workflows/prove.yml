@@ -45,9 +45,13 @@ jobs:
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
       - name: Test
-        run: carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml
+        continue-on-error: true
+        run: |
+          carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml
+          cat junit_output.xml
       - name: Record
         run: launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml
+        if: always()
       - name: Subset
         run: find ./t -name '*.t' | launchable subset --target ${TARGET} --build ${BUILD_NAME} --rest rest.txt prove > subset.txt 
       - name: Subset test
