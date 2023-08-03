@@ -116,7 +116,7 @@ $ launchable inspect subset --subset-id 6
 |       2 | file=t/00_compile.t   |             |                       0.00 |
 |       3 | file=t/easy/01_easy.t |             |                       0.00 |
 
-$ carton exec prove -Ilib --harness TAP::Harness::JUnit -r $(cat subset.txt)
+$ carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r $(cat subset.txt)
 
 xmlfile argument not supplied, defaulting to "junit_output.xml" at ~/examples/prove/local/lib/perl5/TAP/Harness/JUnit.pm line 125.
 t/00_compile.t .. ok   
