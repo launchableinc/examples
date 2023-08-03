@@ -6,6 +6,8 @@ on:
   #   paths:
   #     - "prove/**"
   pull_request:
+    branches:
+      - master
     paths:
       - "prove/**"
 
