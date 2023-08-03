@@ -1,6 +1,6 @@
 name: PerlProve
 
-# on:
+on: [pull_request]
 #   # push:
 #   #   branches: [master]
 #   #   paths:
