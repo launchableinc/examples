@@ -1,10 +1,10 @@
 name: PerlProve
 
 on:
-  push:
-    branches: [master]
-    paths:
-      - "prove/**"
+  # push:
+  #   branches: [master]
+  #   paths:
+  #     - "prove/**"
   pull_request:
     paths:
       - "prove/**"
