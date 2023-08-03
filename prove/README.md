@@ -91,7 +91,7 @@ $ launchable inspect tests --test-session-id 12
 ## Subsetting your test runs
 
 ```shell
-$ BUILD_NAME=test
+$ BUILD_NAME=test_perl
 $ TARGET="50%"
 
 $ find ./t -name '*.t' | launchable subset --target ${TARGET} --build ${BUILD_NAME} --rest rest.txt prove > subset.txt 
