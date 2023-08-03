@@ -40,6 +40,7 @@ jobs:
           cpan Carton
           cpm install
           carton install
+          cpan namespace::autoclean
       - run: "launchable verify"
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
