@@ -13,4 +13,5 @@ RUN apt -y update && \
     cpan Carton && \
     cpm install && \
     carton install && \
-    cpan namespace::autoclean
+    cpan namespace::autoclean && \
+    chmod +x run.sh
