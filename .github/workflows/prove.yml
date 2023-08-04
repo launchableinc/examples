@@ -17,8 +17,8 @@ env:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    # container:
-    #   image: ubuntu:latest
+    container:
+      image: ubuntu:latest
     defaults:
       run:
         working-directory: prove
