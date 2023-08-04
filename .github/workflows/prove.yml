@@ -17,8 +17,6 @@ env:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu:latest
     defaults:
       run:
         working-directory: prove
@@ -31,8 +29,6 @@ jobs:
           java-version: 1.8
       - name: Install dependencies
         run: |
-          apt update
-          apt -y install python3 python3-pip git zstd
           python3 -m pip install --upgrade pip
           pip install wheel setuptools_scm
           # pip install launchable
@@ -58,6 +54,7 @@ jobs:
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
       - name: Test
+        uses: ubuntu:latest
         continue-on-error: true
         run: carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml
       - name: Record
@@ -66,7 +63,25 @@ jobs:
           launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml
         if: always()
       - name: Subset
-        run: find ./t -name '*.t' | launchable subset --target 50% --build "$GITHUB_RUN_ID" --rest rest.txt prove > subset.txt 
-      - name: Subset test
         continue-on-error: true
-        run: carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer $(cat subset.txt)
+        run: |
+          find ./t -name '*.t' | launchable subset --target 50% --build "$GITHUB_RUN_ID" --rest rest.txt prove > subset.txt 
+          carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer $(cat subset.txt)
+      - name: Run in Docker
+        uses: ubuntu:latest
+        continue-on-error: true
+        run: |
+          apt update
+          apt -y install python3 python3-pip git zstd default-jdk
+          python3 -m pip install --upgrade pip
+          pip install wheel setuptools_scm
+          # pip install launchable
+          git clone https://github.com/launchableinc/cli.git
+          cd cli
+          git checkout fix-remove_teardown
+          python3 setup.py install
+          carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml
+          cat junit_output.xml
+          launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml
+          find ./t -name '*.t' | launchable subset --target 50% --build "$GITHUB_RUN_ID" --rest rest.txt prove > subset.txt 
+          carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer $(cat subset.txt)
