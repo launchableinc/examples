@@ -91,4 +91,4 @@ jobs:
         continue-on-error: true
         options: -e GITHUB_RUN_ID -e LAUNCHABLE_TOKEN -v ${pwd}:/opt/
         run: |
-          carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml && cat junit_output.xml && launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml
+          /bin/sh -c "carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml && cat junit_output.xml && launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml"
