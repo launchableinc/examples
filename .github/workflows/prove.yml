@@ -81,15 +81,10 @@ jobs:
       - run: "launchable verify"
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
-      - uses: docker/build-push-action@v2
-        with:
-          file: Dockerfile
-          tags: test:latest
-          push: false
-      - uses: addnab/docker-run-action@v3
+      - name: Build Docker
+        run: |
+          docker build -t test:latest .
+      - name: Run Docker
         continue-on-error: true
-        with: 
-          image: test:latest
-          options: -e GITHUB_RUN_ID -e LAUNCHABLE_TOKEN -v ${pwd}:/opt/
-          run: |
-            /bin/sh -c "carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml && cat junit_output.xml && launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml"
+        run: |
+          docker run -t --name test -e GITHUB_RUN_ID -e LAUNCHABLE_TOKEN -v ${pwd}:/opt/ test:latest /bin/sh -c "set +e && carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml && cat junit_output.xml && launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml"
