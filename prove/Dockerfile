@@ -10,6 +10,7 @@ RUN apt -y update && \
     cd cli && \
     git checkout fix-remove_teardown && \
     python3 setup.py install && \
+    cd .. && \
     cpan Carton && \
     cpm install && \
     carton install && \
