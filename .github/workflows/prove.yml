@@ -87,8 +87,9 @@ jobs:
           tags: test:latest
           push: false
       - uses: addnab/docker-run-action@v3
-        with: test:latest
         continue-on-error: true
-        options: -e GITHUB_RUN_ID -e LAUNCHABLE_TOKEN -v ${pwd}:/opt/
-        run: |
-          /bin/sh -c "carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml && cat junit_output.xml && launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml"
+        with: 
+          image: test:latest
+          options: -e GITHUB_RUN_ID -e LAUNCHABLE_TOKEN -v ${pwd}:/opt/
+          run: |
+            /bin/sh -c "carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml && cat junit_output.xml && launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml"
