@@ -1,5 +1,6 @@
 FROM ubuntu:latest
 
+COPY . /opt/
 WORKDIR /opt/
 RUN apt -y update && \
     apt -y install python3 python3-pip git zstd default-jdk && \
