@@ -15,4 +15,4 @@ RUN apt -y update && \
     cpm install && \
     carton install && \
     cpan namespace::autoclean && \
-    chmod +x run.sh
+    chmod +x /opt/run.sh
