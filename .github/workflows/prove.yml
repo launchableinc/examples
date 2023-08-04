@@ -46,11 +46,6 @@ jobs:
           carton install
           cpan namespace::autoclean
       - run: "launchable verify"
-      - name: where
-        run: |
-          pwd
-          ls -alh
-          git status
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
       - name: Test
@@ -66,11 +61,18 @@ jobs:
         run: |
           find ./t -name '*.t' | launchable subset --target 50% --build "$GITHUB_RUN_ID" --rest rest.txt prove > subset.txt 
           carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer $(cat subset.txt)
+  docker_tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: prove
+    steps:
+      - uses: actions/checkout@v2
       - name: Run in Docker
-        continue-on-error: true
-        run: |
-          docker build -t test:latest .
-          docker run -it --name test -e GITHUB_RUN_ID -e LAUNCHABLE_TOKEN -v ${pwd}:/opt/ test:latest \
-            carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml \
-            cat junit_output.xml \
-            launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml
+      continue-on-error: true
+      run: |
+        docker build -t test:latest .
+        docker run -it --name test -e GITHUB_RUN_ID -e LAUNCHABLE_TOKEN -v ${pwd}:/opt/ test:latest \
+          carton exec prove -Ilib --formatter TAP::Formatter::JUnit -r -j4 --verbose --timer t > junit_output.xml \
+          cat junit_output.xml \
+          launchable record tests --build "$GITHUB_RUN_ID" prove junit_output.xml
