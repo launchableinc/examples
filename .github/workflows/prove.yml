@@ -40,7 +40,6 @@ jobs:
           cd cli
           git checkout fix-remove_teardown
           python3 setup.py install
-          cd ..
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: '5.34'
