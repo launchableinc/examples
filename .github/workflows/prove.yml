@@ -110,7 +110,7 @@ jobs:
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
       - name: Build Docker
         run: |
-          docker build -t test:latest -f Dockerfile.centos
+          docker build -t test:latest -f Dockerfile.centos .
       - name: Run Docker
         continue-on-error: true
         run: |
