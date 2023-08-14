@@ -9,7 +9,7 @@ RUN yum update -y && \
     git clone https://github.com/launchableinc/cli.git && \
     cd cli && \
     git checkout fix-remove_teardown && \
-    python3 setup.py install && \
+    python3 setup.py install
 
 WORKDIR /opt/
 RUN curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > cpm && \
