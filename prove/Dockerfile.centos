@@ -14,7 +14,9 @@ RUN yum update -y && \
 WORKDIR /opt/
 RUN curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > cpm && \
     chmod +x cpm && \
-    cpan Carton && \
+    cpan Carton; exit 0
+
+RUN cpan Carton && \
     ./cpm install && \
     carton install && \
     cpanm namespace::autoclean && \
