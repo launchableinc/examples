@@ -3,16 +3,18 @@ FROM centos:centos7.9.2009
 COPY . /opt/
 WORKDIR /opt/
 RUN yum update -y && \
-    yum install -y python3 python3-pip git zstd default-jdk cpm build-essential && \
+    yum install -y python3 python3-pip epel-release curl make git gcc zstd default-jdk build-essential perl perl-core perl-local-lib perl-CPAN perl-App-cpanminus && \
     python3 -m pip install --upgrade pip && \
-    pip install wheel setuptools_scm && \
+    python3 -m pip install install wheel setuptools_scm && \
     git clone https://github.com/launchableinc/cli.git && \
     cd cli && \
     git checkout fix-remove_teardown && \
     python3 setup.py install && \
     cd .. && \
-    cpan Carton && \
-    cpm install && \
+    curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > cpm && \
+    chmod +x cpm && \
+    cpanm Carton && \
+    ./cpm install && \
     carton install && \
-    cpan namespace::autoclean && \
+    cpanm namespace::autoclean && \
     chmod +x /opt/run.sh
