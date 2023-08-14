@@ -10,8 +10,9 @@ RUN yum update -y && \
     cd cli && \
     git checkout fix-remove_teardown && \
     python3 setup.py install && \
-    cd .. && \
-    curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > cpm && \
+
+WORKDIR /opt/
+RUN curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > cpm && \
     chmod +x cpm && \
     cpanm Carton && \
     ./cpm install && \
