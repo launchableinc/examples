@@ -3,10 +3,11 @@ FROM centos:centos7.9.2009
 COPY . /opt/
 WORKDIR /opt/
 RUN yum update -y && \
-    yum install -y python3 python3-pip epel-release curl make \
-    git gcc zstd default-jdk build-essential perl perl-core \
-    perl-local-lib perl-CPAN perl-App-cpanminus perl-XML-Parser \
-    perl-XML-SemanticDiff && \
+    yum install -y python3 python3-pip epel-release curl make git gcc zstd default-jdk build-essential \
+    perl perl-core perl-local-lib perl-CPAN perl-App-cpanminus expat-devel perl-XML-SemanticDiff \
+    perl-Test-Unit-Runner-Xml expat perl-File-Slurp perl-Moose \
+    perl-IPC-Run perl-Test-XML \
+    perl-XML-SAX perl-XML-SAX-Writer perl-XML-Twig perl-XML-XPath && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install install wheel setuptools_scm && \
     git clone https://github.com/launchableinc/cli.git && \
@@ -20,7 +21,9 @@ RUN curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > cpm && \
     cpan Carton; exit 0
 
 RUN cpan Carton && \
+    cpan install MooseX::NonMoose && \
+    cpan install XML::Parser && \
     ./cpm install && \
     carton install && \
-    cpanm namespace::autoclean && \
+    cpan namespace::autoclean && \
     chmod +x /opt/run.sh
