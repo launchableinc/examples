@@ -6,12 +6,12 @@ RUN yum update -y && \
     yum groupinstall -y "development tools" && \
     yum install -y bzip2-devel gdbm-devel libffi-devel libuuid-devel ncurses-devel \
     readline-devel sqlite-devel tk-devel wget xz-devel zlib-devel epel-release \
-    curl make git gcc zstd default-jdk build-essential \
+    curl make git gcc zstd default-jdk build-essential java-1.8.0-openjdk \
     perl perl-core perl-local-lib perl-CPAN perl-App-cpanminus expat-devel perl-XML-SemanticDiff \
     perl-Test-Unit-Runner-Xml perl-File-Slurp perl-Moose perl-IPC-Run perl-Test-XML \
     perl-XML-SAX perl-XML-SAX-Writer perl-XML-Twig perl-XML-XPath && \
     yum -y remove openssl openssl-devel
-    
+
 WORKDIR /opt/
 RUN wget https://www.openssl.org/source/openssl-1.1.1t.tar.gz && \
     tar xvf openssl-1.1.1t.tar.gz && \
