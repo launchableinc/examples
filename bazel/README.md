@@ -1,4 +1,4 @@
-# Run Java tests
+# Run Java test
 
 ```sh
 # Install bazelisk.
