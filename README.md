@@ -1,4 +1,4 @@
-# launcahbleinc/examples
+# launcahbleinc/example
 
 Hi there!
 
