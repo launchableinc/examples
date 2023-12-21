@@ -1,7 +1,7 @@
 
 # NAME
 
-Example - Example Perl prove project for Launchable
+Example - Example Perl prove project for Launchabl
 
 # USAGE
 
