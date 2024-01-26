@@ -1,0 +1,50 @@
+name: playwright
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "playwright/**"
+  pull_request:
+    paths:
+      - "playwright/**"
+
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_PLAYWRIGHT }}
+  LAUNCHABLE_DEBUG: 1
+  LAUNCHABLE_REPORT_ERROR: 1
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: playwright
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v2.9.0
+        with:
+          java-version: 8
+          destribution: 'temurin'
+      - name: Install launchable CLI
+        run: |
+          pip install launchable
+      - name: Set up playwright
+        run: |
+          npm ci
+          npx playwright install --with-deps
+      - name: Record commits and build
+        run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
+      - name: Subset
+        run: find ./tests/*.ts | launchable subset --confidence 80% --flavor browser=${{ matrix.browser }} playwright > launchable-subset.txt
+      - name: Run Playwright tests
+        run: npx playwright test --project=${{ matrix.browser }} $(cat launchable-subset.txt) --reporter=junit > report.xml
+      - name: Record
+        run: launchable record tests playwright report.xml
+        if: always()
