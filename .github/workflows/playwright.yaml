@@ -5,6 +5,7 @@ on:
     branches: [master]
     paths:
       - "playwright/**"
+      - ".github/workflows/playwright.yaml"
   pull_request:
     paths:
       - "playwright/**"
