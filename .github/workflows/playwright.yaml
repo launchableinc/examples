@@ -34,7 +34,7 @@ jobs:
           destribution: 'temurin'
       - name: Install launchable CLI
         run: |
-          pip install launchable
+          pip install git+https://github.com/launchableinc/cli.git@playwright
       - name: Set up playwright
         run: |
           npm ci
