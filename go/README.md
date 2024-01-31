@@ -54,7 +54,7 @@ $ go test -list . ./... | \
     --build ${BUILD_NAME} \
     --confidence ${CONFIDENCE} \
     go-test > launchable-subset.txt
-    
+
 Your model is currently in training
 Launchable created subset 6 for build test (test session 6) in workspace launchableinc/example
 
