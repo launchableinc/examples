@@ -35,7 +35,7 @@ jobs:
           distribution: 'temurin'
       - name: Install launchable CLI
         run: |
-          pip install git+https://github.com/launchableinc/cli.git@playwright
+          pip install launchable
       - uses: actions/setup-node@v3
         with:
           node-version: 18
