@@ -46,10 +46,9 @@ jobs:
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
       - name: Subset
-        # playwright junit reporter doesn't include testDir path of the config file. So in this case, trim testDir path ourselves.
-        run: find ./tests/*.ts | sed -e 's/.\/tests\///' | launchable subset --confidence 80% --flavor browser=${{ matrix.browser }} playwright > launchable-subset.txt
+        run: find tests/*.ts | launchable subset --confidence 80% --flavor browser=${{ matrix.browser }} playwright > launchable-subset.txt
       - name: Run Playwright tests
-        run: npx playwright test --project=${{ matrix.browser }} ./tests/$(cat launchable-subset.txt) --reporter=junit > report.xml
+        run: npm run test --project=${{ matrix.browser }} $(cat launchable-subset.txt)
       - name: Record
         run: launchable record tests playwright report.xml
         if: always()
