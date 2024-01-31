@@ -46,9 +46,9 @@ jobs:
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
       - name: Subset
-        run: find ./tests/*.ts | launchable subset --confidence 80% --flavor browser=${{ matrix.browser }} playwright > launchable-subset.txt
+        run: find ./tests/*.ts | sed -e 's/.\/tests\///' | launchable subset --confidence 80% --flavor browser=${{ matrix.browser }} playwright > launchable-subset.txt
       - name: Run Playwright tests
-        run: npx playwright test --project=${{ matrix.browser }} $(cat launchable-subset.txt) --reporter=junit > report.xml
+        run: npx playwright test --project=${{ matrix.browser }} ./tests/$(cat launchable-subset.txt) --reporter=junit > report.xml
       - name: Record
         run: launchable record tests playwright report.xml
         if: always()
