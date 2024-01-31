@@ -5,6 +5,7 @@ on:
     branches: [master]
     paths:
       - "playwright/**"
+      - ".github/workflows/playwright.yaml"
   pull_request:
     paths:
       - "playwright/**"
@@ -48,7 +49,7 @@ jobs:
       - name: Subset
         run: find tests/*.ts | launchable subset --confidence 80% --flavor browser=${{ matrix.browser }} playwright > launchable-subset.txt
       - name: Run Playwright tests
-        run: npm run test --project=${{ matrix.browser }} $(cat launchable-subset.txt)
+        run: npx playwright test --project=${{ matrix.browser }} $(cat launchable-subset.txt)
       - name: Record
         run: launchable record tests playwright report.xml
         if: always()
