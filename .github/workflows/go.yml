@@ -56,6 +56,7 @@ jobs:
           launchable verify
           pwd
           ls -la
+          ls -la servicehub
           launchable record build --source src=./servicehub --name $GITHUB_RUN_ID
       - name: Test
         run: |
