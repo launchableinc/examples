@@ -5,9 +5,11 @@ on:
     branches: [master]
     paths:
       - "go/**"
+      - ".github/workflows/go.yml"
   pull_request:
     paths:
       - "go/**"
+      - ".github/workflows/go.yml"
 
 env:
   LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_GO }}
@@ -17,35 +19,51 @@ env:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: go
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
         with:
-          java-version: 1.8
-      - name: Install dependencies
+          ref: master
+          fetch-depth: 0
+          path: servicehub
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+        with:
+          repository: launchableinc/cli
+          ref: main
+          path: taf-utilities
+          fetch-depth: 0
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+        with:
+          repository: golang/go
+          ref: go1.18.10
+          path: digital-workshop
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+      - name: Set up
         run: |
+          sudo apt-get update && sudo apt-get install -y curl
+          sudo apt-get update && sudo apt-get install -y wget
+          sudo apt-get update && sudo apt-get install -y golang-go
+          sudo apt install -y default-jre
+          sudo apt install -y default-jdk
+          java --version
           python -m pip install --upgrade pip
-          pip install wheel setuptools_scm
-          pip install launchable
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.18
-      - name: Install dependencies
-        run: |
-          go install github.com/jstemmer/go-junit-report@latest
-      - run: "launchable verify"
-      - name: Record commits and build
-        run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
-      - name: Subset
-        run: go test -list="Test|Example" ./... | launchable subset --confidence 80%  go-test > launchable-subset.txt
+          python3 -m pip install requests
+          python -m pip install launchable
+           go install github.com/jstemmer/go-junit-report@latest
+      - name: Session
+        run:  |
+          launchable verify
+          pwd
+          ls -la
+          launchable record build --source src=./servicehub --name $GITHUB_RUN_ID
       - name: Test
-        run: go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
+        run: |
+          cd servicehub/go
+          launchable record session --build $GITHUB_RUN_ID
+          go test -list="Test|Example" ./... | launchable subset --confidence 80%  go-test > launchable-subset.txt
+          go test $(cat launchable-subset.txt) ./... -v 2>&1 | $HOME/go/bin/go-junit-report -set-exit-code > report.xml
+          launchable record tests go-test report.xml
       - name: Record
         run: launchable record tests go-test report.xml
         if: always()
