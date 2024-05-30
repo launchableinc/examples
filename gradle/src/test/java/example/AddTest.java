@@ -11,3 +11,4 @@ public class AddTest {
         assertThat(new Add().calc(3,4), is(7));
     }
 }
+
