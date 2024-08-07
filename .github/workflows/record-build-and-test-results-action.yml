@@ -1,0 +1,43 @@
+name: record-build-and-test-results-action
+on:
+  push:
+    branches:
+      - main
+      - github-test-result-action # for debug
+    paths:
+      - "launchable-test-result//**"
+      - ".github/workflows/record-build-and-test-results-action.yml" # for debug
+
+  pull_request:
+    branches:
+      - main
+      - github-test-result-action # for debug
+    paths:
+      - "launchable-test-result//**"
+      - ".github/workflows/record-build-and-test-results-action.yml" # for debug
+
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_PYTEST }}
+  LAUNCHABLE_DEBUG: 1
+  LAUNCHABLE_REPORT_ERROR: 1
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: launchable-test-result
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Record build and test results action
+        uses: launchableinc/record-build-and-test-results-action@v1
+        with:
+          report_path: .
+          test_runner: pytest
+        if: always()
+        env:
+          LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_PYTEST }}
+
+
