@@ -22,22 +22,80 @@ env:
   LAUNCHABLE_REPORT_ERROR: 1
 
 jobs:
-  tests:
+  basic:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: launchable-test-result
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Record build and test results action
-        uses: launchableinc/record-build-and-test-results-action@v1
+        uses: launchableinc/record-build-and-test-results-action@support-flavor-and-test-session-name-options
         with:
-          report_path: .
+          report_path: launchable-test-result/test-results.xml
           test_runner: pytest
         if: always()
-        env:
-          LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_PYTEST }}
-
-
+      - name: Record build and test results action with no build
+        uses: launchableinc/record-build-and-test-results-action@support-flavor-and-test-session-name-options
+        with:
+          report_path: launchable-test-result/test-results.xml
+          test_runner: pytest
+          no_build: true
+        if: always()
+  custom-values:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Record build and test results action with test_session_name option
+        uses: launchableinc/record-build-and-test-results-action@support-flavor-and-test-session-name-options
+        with:
+          report_path: launchable-test-result/test-results.xml
+          test_runner: pytest
+          test_session_name: ${{ github.run_id }}
+        if: always()
+      - name: Record build and test results action with test_session_name option part 2
+        uses: launchableinc/record-build-and-test-results-action@support-flavor-and-test-session-name-options
+        with:
+          report_path: launchable-test-result/test-results.xml
+          test_runner: pytest
+          test_session_name: ${{ github.run_id }}
+        if: always()
+      - name: Record build and test results action with custom build name
+        uses: launchableinc/record-build-and-test-results-action@support-flavor-and-test-session-name-options
+        with:
+          report_path: launchable-test-result/test-results.xml
+          test_runner: pytest
+          build_name: ${{ github.run_id }}-${{ github.job }}
+  matrix-case:
+    strategy:
+      matrix:
+        python_version: ['3.12', '3.11', '3.10']
+        os: ['ubuntu-latest', 'windows-latest']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Replace python version's dot to hyphen
+        run: |
+          python_version=$(echo "${{ matrix.python_version }}" | sed 's/\./-/g')
+          echo "python_version=$python_version" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Record build and test results action with custom build name and test_session_name option with flavor
+        uses: launchableinc/record-build-and-test-results-action@support-flavor-and-test-session-name-options
+        with:
+          report_path: launchable-test-result/test-results.xml
+          test_runner: pytest
+          build_name: ${{ github.run_id }}-${{ github.job }}
+          test_session_name: ${{ github.run_id }}-${{ github.job }}-${{ matrix.os }}-${{ env.python_version }}
+          flavors: 'build_name=true, test_session_name=true, flavors=true, count=1, python_version=${{ matrix.python_version }}, os=${{ matrix.os }}'
+        if: always()
+      - name: Record build and test results action with custom build name and test_session_name option with flavor part 2
+        uses: launchableinc/record-build-and-test-results-action@support-flavor-and-test-session-name-options
+        with:
+          report_path: launchable-test-result/test-results.xml
+          test_runner: pytest
+          build_name: ${{ github.run_id }}-${{ github.job }}
+          test_session_name: ${{ github.run_id }}-${{ github.job }}-${{ matrix.os }}-${{ env.python_version }}
+          flavors: 'build_name=true, test_session_name=true, flavors=true, count=2, python_version=${{ matrix.python_version }}, os=${{ matrix.os }}'
+        if: always()
