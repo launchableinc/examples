@@ -2,19 +2,17 @@ name: record-build-and-test-results-action
 on:
   push:
     branches:
-      - main
-      - github-test-result-action # for debug
+      - master
     paths:
       - "launchable-test-result//**"
-      - ".github/workflows/record-build-and-test-results-action.yml" # for debug
+      - ".github/workflows/record-build-and-test-results-action.yml"
 
   pull_request:
     branches:
-      - main
-      - github-test-result-action # for debug
+      - master
     paths:
       - "launchable-test-result//**"
-      - ".github/workflows/record-build-and-test-results-action.yml" # for debug
+      - ".github/workflows/record-build-and-test-results-action.yml"
 
 env:
   LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_PYTEST }}
