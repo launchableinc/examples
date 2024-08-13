@@ -27,13 +27,13 @@ jobs:
         with:
           fetch-depth: 0
       - name: Record build and test results action
-        uses: launchableinc/record-build-and-test-results-action@update-actions-version
+        uses: launchableinc/record-build-and-test-results-action@v1.1.0
         with:
           report_path: launchable-test-result/test-results.xml
           test_runner: pytest
         if: always()
       - name: Record build and test results action with no build
-        uses: launchableinc/record-build-and-test-results-action@update-actions-version
+        uses: launchableinc/record-build-and-test-results-action@v1.1.0
         with:
           report_path: launchable-test-result/test-results.xml
           test_runner: pytest
@@ -46,21 +46,21 @@ jobs:
         with:
           fetch-depth: 0
       - name: Record build and test results action with test_session_name option
-        uses: launchableinc/record-build-and-test-results-action@update-actions-version
+        uses: launchableinc/record-build-and-test-results-action@v1.1.0
         with:
           report_path: launchable-test-result/test-results.xml
           test_runner: pytest
           test_session_name: ${{ github.run_id }}
         if: always()
       - name: Record build and test results action with test_session_name option part 2
-        uses: launchableinc/record-build-and-test-results-action@update-actions-version
+        uses: launchableinc/record-build-and-test-results-action@v1.1.0
         with:
           report_path: launchable-test-result/test-results.xml
           test_runner: pytest
           test_session_name: ${{ github.run_id }}
         if: always()
       - name: Record build and test results action with custom build name
-        uses: launchableinc/record-build-and-test-results-action@update-actions-version
+        uses: launchableinc/record-build-and-test-results-action@v1.1.0
         with:
           report_path: launchable-test-result/test-results.xml
           test_runner: pytest
@@ -68,8 +68,8 @@ jobs:
   matrix-case:
     strategy:
       matrix:
-        python_version: ['3.12', '3.11', '3.10']
-        os: ['ubuntu-latest', 'windows-latest']
+        python_version: ["3.12", "3.11", "3.10"]
+        os: ["ubuntu-latest", "windows-latest"]
     runs-on: ubuntu-latest
     steps:
       - name: Replace python version's dot to hyphen
@@ -80,20 +80,20 @@ jobs:
         with:
           fetch-depth: 0
       - name: Record build and test results action with custom build name and test_session_name option with flavor
-        uses: launchableinc/record-build-and-test-results-action@update-actions-version
+        uses: launchableinc/record-build-and-test-results-action@v1.1.0
         with:
           report_path: launchable-test-result/test-results.xml
           test_runner: pytest
           build_name: ${{ github.run_id }}-${{ github.job }}
           test_session_name: ${{ github.run_id }}-${{ github.job }}-${{ matrix.os }}-${{ env.python_version }}
-          flavors: 'build_name=true, test_session_name=true, flavors=true, count=1, python_version=${{ matrix.python_version }}, os=${{ matrix.os }}'
+          flavors: "build_name=true, test_session_name=true, flavors=true, count=1, python_version=${{ matrix.python_version }}, os=${{ matrix.os }}"
         if: always()
       - name: Record build and test results action with custom build name and test_session_name option with flavor part 2
-        uses: launchableinc/record-build-and-test-results-action@update-actions-version
+        uses: launchableinc/record-build-and-test-results-action@v1.1.0
         with:
           report_path: launchable-test-result/test-results.xml
           test_runner: pytest
           build_name: ${{ github.run_id }}-${{ github.job }}
           test_session_name: ${{ github.run_id }}-${{ github.job }}-${{ matrix.os }}-${{ env.python_version }}
-          flavors: 'build_name=true, test_session_name=true, flavors=true, count=2, python_version=${{ matrix.python_version }}, os=${{ matrix.os }}'
+          flavors: "build_name=true, test_session_name=true, flavors=true, count=2, python_version=${{ matrix.python_version }}, os=${{ matrix.os }}"
         if: always()
