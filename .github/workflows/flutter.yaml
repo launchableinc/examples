@@ -43,6 +43,8 @@ jobs:
         # Skip #TODO(Konboi): enable subset
         #- name: Subset
         #  run: launchable subset --confidence 100% flutter test/**/*_test.dart > launchable-subset.txt
+        - name: Install dependencies
+          run: flutter pub get
         - name: Test
           run: flutter test --machine > report.json
         - name: Record
