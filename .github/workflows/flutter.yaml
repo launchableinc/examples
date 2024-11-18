@@ -46,5 +46,7 @@ jobs:
         - name: Test
           run: flutter test --machine > report.json
         - name: Record
-          run: launchable record tests flutter report.json
+          run: |
+            cat report.json
+            launchable record tests flutter report.json
           if: always()
