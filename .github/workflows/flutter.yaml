@@ -50,5 +50,5 @@ jobs:
         - name: Record
           run: |
             cat report.json
-            launchable record tests flutter report.json
+            launchable record tests --base $(pwd) flutter report.json
           if: always()
