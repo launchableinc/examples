@@ -40,10 +40,11 @@ jobs:
         - run: "launchable verify"
         - name: Record commits and build
           run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
-        - name: Subset
-          run: find test/*_test.dart | launchable subset --confidence 100% flutter > launchable-subset.txt
+        # Skip #TODO(Konboi): enable subset
+        #- name: Subset
+        #  run: launchable subset --confidence 100% flutter test/**/*_test.dart > launchable-subset.txt
         - name: Test
-          run: flutter test $(cat launchable-subset.txt) --machine > report.json
+          run: flutter test --machine > report.json
         - name: Record
           run: launchable record tests flutter report.json
           if: always()
