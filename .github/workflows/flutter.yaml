@@ -1,0 +1,49 @@
+name: Flutter
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "flutter/**"
+      - ".github/workflows/flutter.yml"
+  pull_request:
+    paths:
+      - "flutter/**"
+      - ".github/workflows/flutter.yml"
+
+
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_FLUTTER }}
+  LAUNCHABLE_DEBUG: 1
+  LAUNCHABLE_REPORT_ERROR: 1
+
+jobs:
+    tests:
+      runs-on: ubuntu-24.04
+      defaults:
+        run:
+          working-directory: flutter
+      steps:
+        - uses: actions/checkout@v4
+        - uses: actions/setup-python@v5
+          with:
+            cache: 'pip'
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install wheel setuptools_scm
+            pip install git+https://github.com/launchableinc/cli.git@flutter-plugin
+        - name: Set up Flutter
+          uses: subosito/flutter-action@v2
+          with:
+            flutter-version: '3.24.4'
+        - run: "launchable verify"
+        - name: Record commits and build
+          run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
+        - name: Subset
+          run: find test/*_test.dart | launchable subset --confidence 100% flutter > launchable-subset.txt
+        - name: Test
+          run: flutter test $(cat launchable-subset.txt) --machine > report.json
+        - name: Record
+          run: launchable record tests flutter report.json
+          if: always()
