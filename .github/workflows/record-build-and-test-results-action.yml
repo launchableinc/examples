@@ -66,7 +66,7 @@ jobs:
           test_runner: pytest
           build_name: ${{ github.run_id }}-${{ github.job }}
       - name: Record build and test results action with test-suite name
-        uses: launchableinc/record-build-and-test-results-action@support-test-suite-option
+        uses: launchableinc/record-build-and-test-results-action@support-test-suite-otpion
         with:
           report_path: launchable-test-result/test-results.xml
           test_runner: pytest
