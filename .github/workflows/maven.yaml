@@ -12,10 +12,14 @@ on:
       - add-maven-example # for debug
     paths:
       - maven/**
+      - .github/workflows/maven.yaml
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: maven
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
