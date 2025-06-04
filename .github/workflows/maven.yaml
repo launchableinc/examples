@@ -39,8 +39,9 @@ jobs:
         run: |
           mvn test-compile
           launchable subset --target 80% maven --scan-test-compile-lst > launchable-subset.txt
+          cat launchable-subset.txt
       - name: Test
-        run: mvn test -Dsurefire.includesFile=launcahble-subset.txt
+        run: mvn test -Dsurefire.includesFile=launchable-subset.txt
       - name: Record
         run: launchable record tests maven ./**/target/surefire-reports/
         if: always()
