@@ -9,14 +9,16 @@ on:
   push:
     branches:
       - master
-      - add-maven-example # for debug
     paths:
       - maven/**
       - .github/workflows/maven.yaml
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     defaults:
       run:
         working-directory: maven
@@ -35,13 +37,27 @@ jobs:
       - run: "launchable verify"
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
-      - name: Subset
+      - name: "Subset and Test - Windows"
+        if: matrix.os == 'windows-latest'
         run: |
+          launchable record session --build $env:GITHUB_RUN_ID > session.txt
           mvn test-compile
-          launchable subset --target 80% maven --scan-test-compile-lst > launchable-subset.txt
-          cat launchable-subset.txt
-      - name: Test
-        run: mvn test -Dsurefire.includesFile=launchable-subset.txt
-      - name: Record
-        run: launchable record tests maven ./**/target/surefire-reports/
-        if: always()
+          $session = Get-Content session.txt
+          launchable subset --session $session --target 80% maven --scan-test-compile-lst > launchable-subset.txt
+          mvn test "-Dsurefire.includesFile=launchable-subset.txt"
+      - name: "Subset and Test - Linux"
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          launchable record session --build $GITHUB_RUN_ID > session.txt
+          mvn test-compile
+          launchable subset --session $(cat session.txt) --target 80% maven --scan-test-compile-lst > launchable-subset.txt
+          mvn test -Dsurefire.includesFile=launchable-subset.txt
+      - name: "Record - Windows"
+        if: matrix.os == 'windows-latest' && always()
+        run: |
+          $session = Get-Content session.txt
+          launchable record tests --session $session maven "./**/target/surefire-reports/"
+      - name: "Record - Linux"
+        if: matrix.os == 'ubuntu-latest' && always()
+        run: |
+          launchable record tests --session $(cat session.txt) maven "./**/target/surefire-reports/"
