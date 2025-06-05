@@ -1,0 +1,53 @@
+name: Test XCTest sample
+
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_XCTEST }}
+  LAUNCHABLE_DEBUG: 1
+  LAUNCHABLE_REPORT_ERROR: 1
+
+on:
+  push:
+    branches:
+      - main
+      - xctest # for debug
+    paths:
+      - xctest/**
+      - .github/workflows/xctest.yml
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest]
+    defaults:
+      run:
+        working-directory: xctest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 11
+          distribution: "temurin"
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: |
+          pip install launchable
+          gem install xcpretty
+      - name: Verify Launchable CLI
+        run: launchable verify
+      - name: Record build
+        run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..'
+      - name: Run tests and record results
+        run: |
+          xcodebuild test -scheme XCTestSample -destination 'platform=iOS Simulator,name=iPhone 14' -parallel-testing-enabled NO | xcpretty -r junit
