@@ -54,3 +54,4 @@ jobs:
       - name: Record tests
         run: |
           launchable record tests xctest "build/reports/*.xml"
+        if: always()

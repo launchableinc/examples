@@ -14,6 +14,6 @@ final class XCTestSampleTests: XCTestCase {
     }
 
     func testMulti() throws {
-        XCTAssertEqual(3 * 4, 12)
+        XCTAssertEqual(3 * 4, 10)
     }
 }
