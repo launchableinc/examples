@@ -20,7 +20,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-15]
     defaults:
       run:
         working-directory: xctest
@@ -54,8 +54,8 @@ jobs:
 
       - name: Run tests
         run: |
-          xcodebuild test -scheme XCTestSample -destination 'platform=iOS Simulator,name=iPhone 14' -parallel-testing-enabled NO $(cat subset.txt) | xcpretty -r junit
+          xcodebuild test -scheme XCTestSample -destination 'platform=iOS Simulator,name=iPhone 16' -parallel-testing-enabled NO $(cat subset.txt) | xcpretty -r junit && exit ${PIPESTATUS[0]}
       - name: Record tests
         run: |
-          launchable record tests xctest "build/reports/*.xml"
+          launchable record tests xctest build/reports/*.xml
         if: always()
