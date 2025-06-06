@@ -42,12 +42,15 @@ jobs:
           python-version: "3.13"
       - name: Install dependencies
         run: |
-          pip install launchable
+          pip install git+https://github.com/launchableinc/cli.git@xctest
           gem install xcpretty
       - name: Verify Launchable CLI
         run: launchable verify
       - name: Record build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..'
-      - name: Run tests and record results
+      - name: Run tests
         run: |
           xcodebuild test -scheme XCTestSample -destination 'platform=iOS Simulator,name=iPhone 14' -parallel-testing-enabled NO | xcpretty -r junit
+      - name: Record tests
+        run: |
+          launchable record tests xctest "build/reports/*.xml"
