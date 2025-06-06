@@ -3,7 +3,8 @@ name: Test XCTest sample
 env:
   LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_XCTEST }}
   LAUNCHABLE_DEBUG: 1
-  LAUNCHABLE_REPORT_ERROR: 1
+  # To run subset command without error
+  # LAUNCHABLE_REPORT_ERROR: 1
 
 on:
   push:
@@ -48,9 +49,12 @@ jobs:
         run: launchable verify
       - name: Record build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..'
+      - name: Subset
+        run: 'launchable subset --target 80% --get-tests-from-previous-sessions --output-exclusion-rules xctest > subset.txt'
+
       - name: Run tests
         run: |
-          xcodebuild test -scheme XCTestSample -destination 'platform=iOS Simulator,name=iPhone 14' -parallel-testing-enabled NO | xcpretty -r junit
+          xcodebuild test -scheme XCTestSample -destination 'platform=iOS Simulator,name=iPhone 14' -parallel-testing-enabled NO $(cat subset.txt) | xcpretty -r junit
       - name: Record tests
         run: |
           launchable record tests xctest "build/reports/*.xml"
