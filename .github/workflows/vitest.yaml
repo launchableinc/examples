@@ -37,7 +37,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Install Launchable CLI
-        run: npm install -g @launchableinc/cli
+        run: pip install git+https://github.com/launchableinc/cli.git@vitest
       - name: Install dependencies
         run: npm install
       - run: launchable verify
