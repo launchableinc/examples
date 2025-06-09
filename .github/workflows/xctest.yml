@@ -1,0 +1,61 @@
+name: Test XCTest sample
+
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_XCTEST }}
+  LAUNCHABLE_DEBUG: 1
+  # To run subset command without error
+  # LAUNCHABLE_REPORT_ERROR: 1
+
+on:
+  push:
+    branches:
+      - main
+      - xctest # for debug
+    paths:
+      - xctest/**
+      - .github/workflows/xctest.yml
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-15]
+    defaults:
+      run:
+        working-directory: xctest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 11
+          distribution: "temurin"
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: |
+          pip install launchable
+          gem install xcpretty
+      - name: Verify Launchable CLI
+        run: launchable verify
+      - name: Record build
+        run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..'
+      - name: Subset
+        run: 'launchable subset --target 80% --get-tests-from-previous-sessions --output-exclusion-rules xctest > subset.txt'
+
+      - name: Run tests
+        run: |
+          xcodebuild test -scheme XCTestSample -destination 'platform=iOS Simulator,name=iPhone 16' -parallel-testing-enabled NO $(cat subset.txt) | xcpretty -r junit && exit ${PIPESTATUS[0]}
+      - name: Record tests
+        run: |
+          launchable record tests xctest build/reports/*.xml
+        if: always()
