@@ -1,0 +1,52 @@
+name: Vitest
+
+on:
+  push:
+    branches:
+      - master
+      - vitest # for debug
+    paths:
+      - "vitest/**"
+  pull_request:
+    paths:
+      - "vitest/**"
+      - .github/workflows/vitest.yaml
+
+env:
+  LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN_VITEST }}
+  LAUNCHABLE_DEBUG: 1
+  LAUNCHABLE_REPORT_ERROR: 1
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: vitest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - name: Install Launchable CLI
+        run: npm install -g @launchableinc/cli
+      - name: Install dependencies
+        run: npm install
+      - run: launchable verify
+      - name: Record commits and build
+        run: launchable record build --name "$GITHUB_RUN_ID" --source ..
+      - name: Subset
+        run: npx vitest list --filesOnly | launchable subset --target 80% vitest > launchable-subset.txt
+      - name: Test
+        run: npx vitest run $(cat launchable-subset.txt) --reporter junit --outputFile report.xml
+      - name: Record
+        run: launchable record tests vitest report.xml
+        if: always()
