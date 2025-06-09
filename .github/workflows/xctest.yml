@@ -43,7 +43,7 @@ jobs:
           python-version: "3.13"
       - name: Install dependencies
         run: |
-          pip install git+https://github.com/launchableinc/cli.git@xctest
+          pip install launchable
           gem install xcpretty
       - name: Verify Launchable CLI
         run: launchable verify
