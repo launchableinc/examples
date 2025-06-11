@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - vitest # for debug
     paths:
       - "vitest/**"
   pull_request:
