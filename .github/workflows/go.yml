@@ -55,7 +55,9 @@ jobs:
       - name: Subset
         run: go test -list="Test|Example" ./... | launchable subset --session $(cat session.txt) --confidence 80%  go-test > launchable-subset.txt
       - name: Test
-        run: go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
+        run: |
+          go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
+          cat report.xml
       - name: Record
         run: launchable record tests --session $(cat session.txt) go-test report.xml
         if: always()
