@@ -27,7 +27,7 @@ func TestExample5(t *testing.T) {
 				a: 3,
 				b: 4,
 			},
-			expect: 7,
+			expect: 8,
 		},
 	}
 
@@ -35,7 +35,7 @@ func TestExample5(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			actual := tt.input.a + tt.input.b
 			if actual != tt.expect {
-				t.Fatalf("expected %d, got %d", tt.expect, actual)
+				t.Errorf("expected %d, got %d", tt.expect, actual)
 			}
 		})
 	}
