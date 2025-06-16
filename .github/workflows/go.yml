@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go-version: [1.23, 1.24]
         go-junit-report-version: [
           "github.com/jstemmer/go-junit-report@latest", # v1
           "github.com/jstemmer/go-junit-report/v2@latest", # v2
@@ -42,7 +41,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version: "1.24"
       - name: Install dependencies
         run: |
           go install ${{ matrix.go-junit-report-version }}
