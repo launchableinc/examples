@@ -17,6 +17,12 @@ env:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-junit-report-version: [
+          "github.com/jstemmer/go-junit-report@latest", # v1
+          "github.com/jstemmer/go-junit-report/v2@latest", # v2
+        ]
     defaults:
       run:
         working-directory: go
@@ -33,19 +39,24 @@ jobs:
           pip install wheel setuptools_scm
           pip install launchable
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v5
         with:
-          go-version: 1.18
+          go-version: "1.24"
       - name: Install dependencies
         run: |
-          go install github.com/jstemmer/go-junit-report@latest
+          go install ${{ matrix.go-junit-report-version }}
       - run: "launchable verify"
       - name: Record commits and build
         run: 'launchable record build --name "$GITHUB_RUN_ID" --source ..' # care for working-directory path
+      - name: Record session
+        run: |
+          launchable record session --build "$GITHUB_RUN_ID" --flavor go-version=${{ matrix.go-version }} --flavor go-junit-report-version=${{ matrix.go-junit-report-version }} > session.txt
       - name: Subset
-        run: go test -list="Test|Example" ./... | launchable subset --confidence 80%  go-test > launchable-subset.txt
+        run: go test -list="Test|Example" ./... | launchable subset --session $(cat session.txt) --confidence 80%  go-test > launchable-subset.txt
       - name: Test
-        run: go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
+        run: |
+          go test $(cat launchable-subset.txt) ./... -v 2>&1 | go-junit-report -set-exit-code > report.xml
+          cat report.xml
       - name: Record
-        run: launchable record tests go-test report.xml
+        run: launchable record tests --session $(cat session.txt) go-test report.xml
         if: always()
