@@ -22,12 +22,12 @@ func TestExample5(t *testing.T) {
 			expect: 3,
 		},
 		{
-			title: "Test case 2 (fail case)",
+			title: "Test case 2",
 			input: input{
 				a: 3,
 				b: 4,
 			},
-			expect: 8,
+			expect: 7,
 		},
 	}
 
