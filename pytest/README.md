@@ -1,6 +1,5 @@
 # Pytest
 
-
 ## Recording test results
 
 ```shell
