@@ -16,21 +16,34 @@ env:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: pytest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
       - name: Set up Python 3.7
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: 3.7
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest==4.2.0 attrs==19.1.0 pytest-launchable
+          pip install -r requirements.txt
       - run: launchable verify
       - name: Run Pytest
-        run: pytest --launchable .
+        run: |
+          launchable record build --name ${GITHUB_RUN_ID}
+          launchable record session --build ${GITHUB_RUN_ID} > session.txt
+
+          pytest --collect-only -q > test_list.txt
+          cat test_list.txt | launchable subset --session $(cat session.txt) --target 100% pytest > launchable-subset.txt
+
+          function record() {
+            # Record test results
+            launchable record tests --session $(cat session.txt) pytest --json test-results/results.json
+          }
+          trap record EXIT
+
+          pytest --report-log=test-results/results.json $(cat launchable-subset.txt)
+
