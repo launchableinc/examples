@@ -1,0 +1,5 @@
+pytest
+launchable
+pytest-reportlog
+pytest-dependency
+pytest-order
