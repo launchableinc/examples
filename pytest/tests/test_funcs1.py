@@ -1,5 +1,6 @@
-def test_func1():
-    assert 1 == True
+class TestFuncs1:
+    def test_func1(self):
+        assert 1 == True
 
-def test_func2():
-    assert 0 == False
+    def test_func2(self):
+        assert 0 == False
