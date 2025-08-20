@@ -44,6 +44,6 @@ jobs:
           }
           trap record EXIT
 
-          pytest tests/test.py --report-log=test-results/results.json $(cat launchable-subset.txt)
-          cat 
+          pytest tests/test.py --report-log=test-results/results.json
+          cat test-results/results.json
 
