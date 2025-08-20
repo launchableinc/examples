@@ -1,6 +1,9 @@
 import pytest
 
-class TestDeps:
+from base_tests.base_test import BaseAPITest
+
+
+class TestDeps(BaseAPITest):
     set_this_thing = 0
 
     # --- Independent tests for Launchable to potentially remove ---
@@ -33,24 +36,23 @@ class TestDeps:
         TestDeps.set_this_thing += 1
         assert TestDeps.set_this_thing == 4
 
-    @pytest.mark.order(-1)
+    @pytest.mark.order(5)
     @pytest.mark.dependency()
     def test_dep_5(self):
         TestDeps.set_this_thing += 1
         assert TestDeps.set_this_thing == 5
 
-    # @pytest.mark.dependency(depends=["TestDeps::test_dep_5"])
-    # def test_dep_6(self):
-    #     TestDeps.set_this_thing += 1
-    #     assert TestDeps.set_this_thing == 6
+    @pytest.mark.dependency(depends=["TestDeps::test_dep_5"])
+    def test_dep_6(self):
+        TestDeps.set_this_thing += 1
+        assert TestDeps.set_this_thing == 6
 
-    # @pytest.mark.dependency(depends=["TestDeps::test_dep_6"])
-    # def test_dep_7(self):
-    #     TestDeps.set_this_thing += 1
-    #     assert TestDeps.set_this_thing == 7
+    @pytest.mark.dependency(depends=["TestDeps::test_dep_6"])
+    def test_dep_7(self):
+        TestDeps.set_this_thing += 1
+        assert TestDeps.set_this_thing == 7
 
-    # @pytest.mark.dependency(depends=["TestDeps::test_dep_7"])
-    # def test_dep_8(self):
-    #     TestDeps.set_this_thing += 1
-    #     assert TestDeps.set_this_thing == 8
-        
+    @pytest.mark.dependency(depends=["TestDeps::test_dep_7"])
+    def test_dep_8(self):
+        TestDeps.set_this_thing += 1
+        assert TestDeps.set_this_thing == 8
