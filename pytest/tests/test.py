@@ -1,7 +1,7 @@
 import pytest
 
 
-class TestDeps():
+class TestDeps:
     set_this_thing = 0
 
     # --- Independent tests for Launchable to potentially remove ---
