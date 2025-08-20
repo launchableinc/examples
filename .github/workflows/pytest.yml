@@ -37,6 +37,7 @@ jobs:
           launchable record session --build ${GITHUB_RUN_ID} --test-suite pytest > session.txt
 
           pytest --collect-only -q tests/test.py > test_list.txt
+          cat test_list.txt | launchable subset --session $(cat session.txt) --target 100% pytest > launchable-subset.txt
 
           function record() {
             # Record test results
@@ -44,6 +45,5 @@ jobs:
           }
           trap record EXIT
 
-          pytest tests/test.py --report-log=test-results/results.json
-          cat test-results/results.json
+          pytest --report-log=test-results/results.json $(cat launchable-subset.txt)
 
