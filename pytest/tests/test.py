@@ -1,9 +1,7 @@
 import pytest
 
-from base_tests.base_test import BaseAPITest
 
-
-class TestDeps(BaseAPITest):
+class TestDeps():
     set_this_thing = 0
 
     # --- Independent tests for Launchable to potentially remove ---
